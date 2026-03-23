@@ -6,15 +6,22 @@
 
 ## Skills
 
+### Custom (직접 제작)
+
 | Skill | 설명 | 사용법 |
 |-------|------|--------|
-| **agent-browser** | 브라우저 자동화 CLI. 웹 탐색, 폼 작성, 스크린샷, 데이터 추출 등 | `agent-browser open <url>` |
 | **blog_post** | 블로그 포스트 협업 작성. 기획 → 작성 → 저장까지 인터랙티브 진행 | `/blog_post <제목>` |
 | **create_5layer_agent** | LangGraph 5-Layer 에이전트 프로젝트 스캐폴딩 | `/create_5layer_agent` |
 | **qa_project** | 범용 프로젝트 QA 자동화. 구조 파악 → 테스트 → 리포트 → 이슈 등록 | `/qa_project qa_major` |
 | **ralph_manager** | 자율 개발 루프(Ralph) 관리. 초기화, PRD, 실행, 리뷰 | `/ralph_manager init` |
 | **update_note** | 세션 작업 내용을 `update_note.md`에 기록하고 git commit 제안 | `/update_note` |
 | **reference** | Claude Code 활용 팁, 훅 패턴, MCP 서버, 프롬프트 엔지니어링 레퍼런스 | 직접 참조 |
+
+### Ported (외부에서 가져온 것)
+
+| Skill | 원본 | 설명 | 사용법 |
+|-------|------|------|--------|
+| **agent-browser** | [Vercel](https://github.com/vercel/agent-browser) | 브라우저 자동화 CLI. 웹 탐색, 폼 작성, 스크린샷, 데이터 추출 등 | `agent-browser open <url>` |
 
 ## Setup
 
