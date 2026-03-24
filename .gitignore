@@ -23,3 +23,6 @@ venv/
 
 # Logs
 *.log
+
+# Work Manager project data (contains project-specific info)
+work-manager/projects/

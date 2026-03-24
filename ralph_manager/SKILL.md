@@ -453,3 +453,29 @@ Ralph commits: 12
 - **150줄 제한**: 생성하는 PROMPT.md는 항상 150줄 이하
 - **프로젝트 맞춤**: package.json, tsconfig.json 등을 읽어서 빌드/테스트 명령어 자동 감지
 - **안전 우선**: ralph.sh에 `--dangerously-skip-permissions` 절대 포함하지 않음
+
+---
+
+## 트러블슈팅
+
+### tmux 인증 실패 ("Not logged in · Please run /login")
+`--monitor` 모드는 tmux를 사용한다. tmux 서버가 claude 로그인 이전에 시작된 경우, 오래된 환경을 물고 있어서 인증 정보를 찾지 못한다.
+
+**해결**: `tmux kill-server` 로 tmux 서버를 재시작한 뒤 ralph를 다시 실행.
+
+### Rate limit 소진 (100/100)
+인증 실패 등으로 빠르게 실패-재시도를 반복하면 호출 카운터만 소진된다.
+
+**해결**: `.ralph/.call_count` 파일에 `0`을 써서 리셋.
+```bash
+printf "0" > .ralph/.call_count
+```
+
+### Circuit breaker 트립
+연속 실패 시 circuit breaker가 OPEN 되어 루프가 중단된다.
+
+**해결**:
+```bash
+ralph --reset-circuit
+ralph --reset-session
+```

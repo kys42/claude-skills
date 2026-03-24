@@ -175,14 +175,20 @@ tsx scripts/import-reddit-report.ts --src /path/to/reports --out ./src/content/b
 ### OpenClaw Scraps
 
 ```bash
-npm run scraps:import       # 임포트
+npm run scraps:import       # 임포트 (MD 파일 생성)
 npm run scraps:validate     # 검증
 ```
+
+- 소스: `~/.openclaw/workspace/memory/scrap/` (카테고리별 하위 폴더)
+- 출력: `src/content/scraps/{slug}.md` (정적 MD 파일)
+- DB 의존성 없음 — reddit-report와 동일한 MD 생성 패턴
+- `--vault <dir>` 옵션으로 소스 경로 변경 가능
+- `--dry-run`으로 미리보기
 
 ### 임포트 후 게시
 
 ```bash
-git add src/content/blog/
+git add src/content/blog/ src/content/scraps/
 git commit -m "feat(blog): import {소스}"
 git push origin dev
 ```
