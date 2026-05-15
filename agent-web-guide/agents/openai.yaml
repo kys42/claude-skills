@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Web Guide"
+  short_description: "Agent-Web Integration Guide"
+  default_prompt: "Use $agent-web-guide when this skill matches the user request."
