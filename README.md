@@ -17,6 +17,7 @@
 | **update_note** | 세션 작업 내용을 `update_note.md`에 기록하고 git commit 제안 | `/update_note` |
 | **work-manager** | 개발 워크플로우 매니저. 이슈 → 브랜치 → 구현 → 테스트 → PR → 리뷰 → 머지까지 자동화 | `/work-manager` |
 | **summary** | Claude Code 작업 내용 요약. 오늘, 어제, 이번 주, 특정 날짜 등 지원 | `/summary` |
+| **agent-web-guide** | 웹 서비스에 AI 에이전트 채팅 붙이기. SSE 스트리밍, 도구 설계, 액션 시스템 아키텍처 가이드 | `/agent-web-guide` |
 | **reference** | Claude Code 활용 팁, 훅 패턴, MCP 서버, 프롬프트 엔지니어링 레퍼런스 | 직접 참조 |
 
 ### Ported (외부에서 가져온 것)
@@ -43,6 +44,7 @@ skills/
 ├── qa_project/        # QA 자동화
 ├── ralph_manager/     # 자율 개발 루프
 ├── reference/         # 레퍼런스 문서 모음
+├── agent-web-guide/   # 에이전트-웹 통합 가이드
 ├── summary/           # 작업 요약
 ├── update_note/       # 세션 기록
 └── work-manager/      # 개발 워크플로우 매니저
