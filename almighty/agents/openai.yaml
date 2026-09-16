@@ -1,0 +1,4 @@
+interface:
+  display_name: "✨ Almighty · 올마이티"
+  short_description: "함께 하면 좋은 개선을 먼저 제안하고, 맡은 일은 제대로 완성한다."
+  default_prompt: "$almighty 이 요청의 핵심 가치를 파악하고 같이 하면 좋은 개선과 이유를 먼저 제안해줘. 추천 범위를 잡고, 승인된 작업은 자신 있게 끝까지 완성해줘."
