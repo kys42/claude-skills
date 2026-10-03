@@ -16,6 +16,8 @@ from PIL import Image
 W = H = 32
 FRAMES = 4
 STATES = ["idle", "work", "think", "call", "done", "error", "sleep", "leave"]
+# 돌아다니기용 보조 시트 (탑뷰 오피스): 아래로 / 위로(뒷모습) / 옆으로(왼쪽은 좌우 반전)
+WALKS = ["walk_down", "walk_up", "walk_side"]
 CX = 15.5
 
 EYE = (34, 25, 42)
@@ -229,6 +231,14 @@ def build(sp, state, f):
         eye_kind, look = "open", (1, 0)
         arm_l = "bag"
         feet_phase = f
+    elif state in WALKS:
+        dy = [0, -1, -1, 0][f] if floats else [0, -1, 0, -1][f]
+        feet_phase = f
+        if state == "walk_side":
+            look = (2, 0)
+
+    side = 2 if state == "walk_side" else 0
+    back = state == "walk_up"
 
     body = body_mask(shape, dx, dy, f, state)
     region = set(body)
@@ -393,7 +403,11 @@ def build(sp, state, f):
             tip = sp["light"]
         cv.rect(15 + dx, top - 6, 2, 2, tip)
         # 얼굴 화면
-        cv.rect(10 + dx, 16 + dy, 12, 8, sp["plate"])
+        if back:
+            cv.rect(12 + dx, 19 + dy, 8, 1, sp["shade"])
+            cv.rect(12 + dx, 21 + dy, 8, 1, sp["shade"])
+        else:
+            cv.rect(10 + dx + side, 16 + dy, 12, 8, sp["plate"])
     if shape in ("crab", "ghost"):
         for (x, y) in antenna:
             cv.put(x, y, sp["shade"] if shape == "crab" else sp["light"])
@@ -402,8 +416,9 @@ def build(sp, state, f):
         rows = [".x.", "xxx", ".x."] if twinkle else ["x.x", ".x.", "x.x"]
         cv.pattern(sx_, sy_, rows, {"x": sp["star"]})
 
-    eyes(cv, sp, eye_kind, dx, dy, look)
-    mouth(cv, sp, mouth_kind, dx, dy)
+    if not back:
+        eyes(cv, sp, eye_kind, dx, dy, look)
+        mouth(cv, sp, mouth_kind, dx + side, dy)
 
     # 소품
     if state == "work":
@@ -506,6 +521,11 @@ def main():
         sheet = build_sheet(key)
         sheet.save(os.path.join(out, f"{key}.png"))
         sheet.resize((sheet.width * 4, sheet.height * 4), Image.NEAREST).save(os.path.join(out, f"{key}@4x.png"))
+        walk = Image.new("RGBA", (W * FRAMES, H * len(WALKS)), (0, 0, 0, 0))
+        for r, st in enumerate(WALKS):
+            for f in range(FRAMES):
+                walk.paste(build(sp, st, f), (f * W, r * H))
+        walk.save(os.path.join(out, f"{key}_walk.png"))
         manifest[key] = {
             "id": f"dot-{key}",
             "label": sp["label"],
@@ -518,6 +538,7 @@ def main():
             "bubbleAnchor": {"x": 16, "y": 2},
             "states": {st: ({"row": i, "loop": False} if st == "leave" else i) for i, st in enumerate(STATES)},
             "names": NAME_POOL[key],
+            "walk": {"sheet": f"{key}_walk.png", "down": 0, "up": 1, "side": 2, "flipLeft": True},
         }
     with open(os.path.join(out, "pets.json"), "w", encoding="utf-8") as fp:
         json.dump(manifest, fp, ensure_ascii=False, indent=2)

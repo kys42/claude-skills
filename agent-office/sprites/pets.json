@@ -37,7 +37,14 @@
       "코코",
       "당근",
       "모모"
-    ]
+    ],
+    "walk": {
+      "sheet": "claude_walk.png",
+      "down": 0,
+      "up": 1,
+      "side": 2,
+      "flipLeft": true
+    }
   },
   "codex": {
     "id": "dot-codex",
@@ -77,7 +84,14 @@
       "네모",
       "삑삑",
       "큐브"
-    ]
+    ],
+    "walk": {
+      "sheet": "codex_walk.png",
+      "down": 0,
+      "up": 1,
+      "side": 2,
+      "flipLeft": true
+    }
   },
   "openclaw": {
     "id": "dot-openclaw",
@@ -117,7 +131,14 @@
       "집게",
       "꽃게",
       "가재"
-    ]
+    ],
+    "walk": {
+      "sheet": "openclaw_walk.png",
+      "down": 0,
+      "up": 1,
+      "side": 2,
+      "flipLeft": true
+    }
   },
   "gemini": {
     "id": "dot-gemini",
@@ -157,6 +178,13 @@
       "별이",
       "반짝",
       "쌍둥"
-    ]
+    ],
+    "walk": {
+      "sheet": "gemini_walk.png",
+      "down": 0,
+      "up": 1,
+      "side": 2,
+      "flipLeft": true
+    }
   }
 }

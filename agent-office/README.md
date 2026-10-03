@@ -14,6 +14,7 @@ Claude Code · Codex · OpenClaw · Gemini CLI 세션을 데스크탑 위 쪼꼬
 |---|---|---|---|
 | **A · 모찌 플로트** | 비눗방울 속 말랑 펫이 화면 위를 둥둥. 불러요 펫은 말랑하게 흔들리고, 말풍선에서 바로 허용/거절 | 노을 지는 파스텔 작업실 — 책상·라운지·퇴근길 문 + 근무표 | 가장 귀엽고 부드러움 |
 | **B · 도트 오피스** | 픽셀 직원들이 창틀·작업표시줄 위를 걸어다님 (Shimeji 느낌) | 2층 건물 단면 야근 모드 + 출근부(HP = 남은 컨텍스트) + RPG 대화창 | 게임처럼, 실제 스프라이트 시트로 동작 |
+| **E · 탑뷰 오피스** | (사무실 중심 시안) | 위에서 내려다보는 좁은 픽셀 사무실. 캐릭터가 크고(타일 2칸), 문으로 출근해 빈자리에 앉고, 커피·우편함으로 돌아다니고, 부를 땐 노란 '호출 존'으로 걸어와 큰 말풍선에서 허용/거절. 퇴근하면 문으로 나감 | 게더타운처럼 살아 움직임, 상태가 제일 잘 보임 |
 | **C · 야근 빌딩** | 화면 오른쪽 끝에서 빼꼼 — 급한 순서로 줄 섬, 불러요는 팻말 들고 튀어나옴 | 리소 인쇄풍 빌딩 단면. 층 = 에이전트 팀, 방 = 세션, 불 꺼진 방 = 퇴근 | 정보 밀도 높고 그래픽적 |
 
 ## 상태 8개 (우선순위 순)
@@ -45,11 +46,13 @@ Claude Code · Codex · OpenClaw · Gemini CLI 세션을 데스크탑 위 쪼꼬
 - 시트 1장 = 프레임 32×32, 4열(프레임) × 8행(상태) = 128×256 PNG
 - 행 순서: `idle, work, think, call, done, error, sleep, leave`
 - 발끝 기준점 (16, 30), 말풍선 기준점 (16, 2)
+- 돌아다니기용 보조 시트 `{agent}_walk.png`: 4프레임 × 3행(아래·위(뒷모습)·옆, 왼쪽은 좌우 반전)
 - `pets.json`의 `match.agent`로 에이전트 종류에 스킨을 연결, `names`는 추천 이름 풀
 
 ```bash
 pip install pillow
-python3 sprites/gen_sprites.py   # claude/codex/openclaw/gemini .png, @4x 미리보기, pets.json 생성
+python3 sprites/gen_sprites.py   # claude/codex/openclaw/gemini .png, 걷기 시트(_walk.png), @4x 미리보기, pets.json
+python3 sprites/gen_office.py    # 탑뷰 오피스 맵(office_bg.png)과 y정렬용 책상·소파 조각
 ```
 
 같은 규격의 PNG와 pets.json 항목만 바꾸면 다른 그림체의 캐릭터로 갈아 끼울 수 있습니다.
