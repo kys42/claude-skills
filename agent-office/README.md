@@ -8,7 +8,7 @@ Claude Code · Codex · OpenClaw · Gemini CLI 세션을 데스크탑 위 쪼꼬
 - `design/` — 캔버스 아트보드 원본(`.dc.html`)과 배치(`canvas.json`)
 - `sprites/` — 도트 펫 스프라이트 시트 생성기와 결과물
 
-## 시안 3개
+## 시안
 
 | 시안 | 데스크탑 | 사무실 | 한 줄 |
 |---|---|---|---|
