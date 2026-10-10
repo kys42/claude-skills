@@ -39,7 +39,7 @@ describe('layoutMonth', () => {
         expect(labels[i].top).toBeGreaterThanOrEqual(labels[i - 1].top + labels[i - 1].height);
       }
     }
-    expect(layout.height).toBeGreaterThan(HEADER_H + 31 * 18);
+    expect(layout.height).toBeGreaterThan(HEADER_H + 6 * 60);
   });
 
   it('meets the next month seamlessly', () => {
@@ -55,6 +55,27 @@ describe('layoutMonth', () => {
     expect(dateAtY(layout, layout.height)).toBe('2026-09-01');
     const mid = dateAtY(layout, layout.height / 2);
     expect(dayIndex({ y: 2026, m: 9, d: Number(mid.slice(8)) })).toBeGreaterThan(dayIndex({ y: 2026, m: 9, d: 5 }));
+  });
+
+  it('keeps empty months short and lets footprints open them up', () => {
+    const empty = layoutMonth({ year: 2026, month: 7, footprints: [], today, geometry });
+    expect(empty.height).toBeLessThan(140);
+    const one = layoutMonth({ year: 2026, month: 7, footprints: [fp('2026-07-10', 'big', '여름의 큰 발자국')], today, geometry });
+    expect(one.height).toBeGreaterThan(empty.height);
+    const three = layoutMonth({
+      year: 2026,
+      month: 7,
+      footprints: [fp('2026-07-10', 'big'), fp('2026-07-11', 'big'), fp('2026-07-12', 'small')],
+      today,
+      geometry,
+    });
+    expect(three.height).toBeGreaterThan(one.height);
+  });
+
+  it('leaves room under the "you are here" button before today\'s footprints', () => {
+    const layout = layoutMonth({ year: 2026, month: 10, footprints: [fp('2026-10-10', 'big')], today, geometry });
+    const now = layout.nowMarker!;
+    expect(layout.entries[0].label.top).toBeGreaterThan(now.y + 20);
   });
 
   it('keeps footsteps clear of footprints', () => {

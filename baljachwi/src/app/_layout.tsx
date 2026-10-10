@@ -22,7 +22,6 @@ export default function RootLayout() {
       <StatusBar style="dark" />
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#F2F5F8' } }}>
         <Stack.Screen name="index" />
-        <Stack.Screen name="editor" options={{ presentation: 'modal' }} />
       </Stack>
     </SafeAreaProvider>
   );

@@ -1,3 +1,4 @@
+import { withJosa } from '@/domain/korean';
 import { addDays, dayIndex, daysInMonth, formatKoreanDate, fromDayIndex, fromMonthKey, isValidISODate, monthKey } from '@/domain/dates';
 import { countSteps, levelForSteps } from '@/domain/level';
 import { isSeasonTop, seasonOf, seasonProgress } from '@/domain/seasons';
@@ -61,5 +62,12 @@ describe('seasons', () => {
   it('measures progress through a season', () => {
     expect(seasonProgress(9, 1, 30)).toBe(0);
     expect(seasonProgress(1, 1, 31)).toBeCloseTo(1 / 3);
+  });
+});
+
+describe('korean', () => {
+  it('chooses 이/가 by the final consonant', () => {
+    expect(withJosa('탐험가', '이', '가')).toBe('탐험가가');
+    expect(withJosa('전설', '이', '가')).toBe('전설이');
   });
 });
