@@ -1,0 +1,37 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-10-10T11:05:00Z" },
+  "title": "발자취 디자인 시안",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Seasons.dc.html": { "x": 0, "y": -2900, "w": 390, "h": 2440, "title": "D · 사계절 길 (눈길 발전형)" },
+    "Sketch.dc.html": { "x": 470, "y": -2900, "w": 390, "h": 2160, "title": "F · 스케치 일기" },
+    "Pop.dc.html": { "x": 940, "y": -2900, "w": 390, "h": 2140, "title": "G · 팝아트 코믹" },
+    "Main.dc.html": { "x": 0, "y": 0, "w": 390, "h": 1960, "title": "A · 클린 — 나의 길", "is_interactive": true },
+    "Record.dc.html": { "x": 470, "y": 0, "w": 390, "h": 844, "title": "A · 클린 — 발자취 남기기", "is_interactive": true },
+    "Cute-Path.dc.html": { "x": 940, "y": 0, "w": 390, "h": 2080, "title": "B · 귀여운 — 발도장 여행", "is_interactive": true },
+    "Cute-Levelup.dc.html": { "x": 1410, "y": 0, "w": 390, "h": 844, "title": "B · 귀여운 — 레벨 업!", "is_interactive": true },
+    "Snow.dc.html": { "x": 1880, "y": 0, "w": 390, "h": 1720, "title": "D · 눈길 — 눈 위의 발자국" },
+    "Atlas.dc.html": { "x": 0, "y": 2500, "w": 1440, "h": 1060, "title": "C · 탐험 지도 — 데스크톱", "expand": "fill", "is_interactive": true },
+    "Chronicle.dc.html": { "x": 1520, "y": 2500, "w": 1440, "h": 1520, "title": "E · 연대기 — 데스크톱", "expand": "fill" }
+  },
+  "order": [
+    "Seasons.dc.html",
+    "Sketch.dc.html",
+    "Pop.dc.html",
+    "Main.dc.html",
+    "Record.dc.html",
+    "Cute-Path.dc.html",
+    "Cute-Levelup.dc.html",
+    "Snow.dc.html",
+    "Atlas.dc.html",
+    "Chronicle.dc.html"
+  ],
+  "notes": {
+    "rowSeasons": { "x": 0, "y": -3200, "text": "2차 · 사계절 모바일 시안 — D 사계절 길 / F 스케치 / G 팝아트", "kind": "title1", "maxW": 1330 },
+    "rowMobile": { "x": 0, "y": -300, "text": "발자취 — 모바일 시안 · A 클린 / B 귀여운 / D 눈길", "kind": "title1", "maxW": 2270 },
+    "rowDesktop": { "x": 0, "y": 2200, "text": "발자취 — 데스크톱 시안 · C 탐험 지도 / E 연대기", "kind": "title1", "maxW": 2960 }
+  },
+  "designSystems": []
+}

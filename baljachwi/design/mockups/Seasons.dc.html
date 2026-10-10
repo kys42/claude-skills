@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>발자취 · 사계절 길</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&amp;family=Gowun+Batang:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1F2A36}a:hover{color:#3D6FD8}
+@keyframes snowfall{0%{transform:translateY(-20px);opacity:0}20%{opacity:.9}100%{transform:translateY(110px);opacity:0}}
+.snow{animation:snowfall 7s linear infinite}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.9);opacity:0}}
+.breathe{animation:breathe 2.4s ease-in-out infinite}
+</style>
+</helmet>
+<div style="width: 390px; height: 2440px; position: relative; overflow: hidden; background-image: linear-gradient(180deg, #F2F5F8 0px, #F2F5F8 330px, #F6EADA 420px, #F6EADA 950px, #E3EED6 1040px, #E3EED6 1410px, #F9ECEE 1500px, #F9ECEE 2200px, #F2F5F8 2290px, #F2F5F8 2440px); color: #1F2A36; font-family: 'Gowun Batang', 'Nanum Myeongjo', serif">
+
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 2440px; font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 150px; line-height: 1; color: rgba(31, 42, 54, 0.05); letter-spacing: -0.04em">
+    <span style="position: absolute; left: 6px; top: 404px">10</span>
+    <span style="position: absolute; left: 10px; top: 664px">9</span>
+    <span style="position: absolute; left: 10px; top: 1474px">5</span>
+    <span style="position: absolute; left: 10px; top: 1884px">3</span>
+  </div>
+
+  <sc-if value="{{decoOn}}" hint-placeholder-val="{{ true }}">
+    <sc-for list="{{deco}}" as="d" hint-placeholder-count="60">
+      <span aria-hidden="true" style="position: absolute; left: {{d.l}}px; top: {{d.t}}px; width: {{d.s}}px; height: {{d.s}}px; transform: rotate({{d.r}}deg); opacity: {{d.o}}">
+        <sc-if value="{{d.isLeaf}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 20 20"><path d="M10 1.5C15.5 5 16.5 12 10 18.5C3.5 12 4.5 5 10 1.5Z" fill="{{d.c}}"></path><path d="M10 4V17.5" stroke="rgba(60, 30, 10, 0.25)" stroke-width="1" fill="none"></path></svg>
+        </sc-if>
+        <sc-if value="{{d.isMaple}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 24 24"><path d="M12 1.5l2.1 4.3 3.1-1.2-.9 4.4 4.6.6-3.3 3.3 1.4 3.4-4.4-.9-.8 4.1h-3.6l-.8-4.1-4.4.9 1.4-3.4-3.3-3.3 4.6-.6-.9-4.4 3.1 1.2z" fill="{{d.c}}"></path><path d="M12 19.5v3.5" stroke="{{d.c}}" stroke-width="1.4" stroke-linecap="round"></path></svg>
+        </sc-if>
+        <sc-if value="{{d.isPetal}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 12 12"><path d="M6 1.2L7.1 2.7 8.3 1.5C10.2 4.8 9.3 8.8 6 11.4 2.7 8.8 1.8 4.8 3.7 1.5L4.9 2.7Z" fill="{{d.c}}"></path></svg>
+        </sc-if>
+        <sc-if value="{{d.isFlower}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 20 20"><g fill="{{d.c}}"><circle cx="10" cy="5.2" r="3.6"></circle><circle cx="14.6" cy="8.5" r="3.6"></circle><circle cx="12.8" cy="13.9" r="3.6"></circle><circle cx="7.2" cy="13.9" r="3.6"></circle><circle cx="5.4" cy="8.5" r="3.6"></circle></g><circle cx="10" cy="10" r="2.6" fill="#F3CE5E"></circle></svg>
+        </sc-if>
+        <sc-if value="{{d.isGrass}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 20 18"><g fill="none" stroke="{{d.c}}" stroke-width="1.7" stroke-linecap="round"><path d="M5 17.5C5 11 3 7.5 1.5 5.5"></path><path d="M10 17.5C10 10 11 5.5 13 2"></path><path d="M14.5 17.5C14.5 12 16.5 9.5 18.5 8.5"></path></g></svg>
+        </sc-if>
+        <sc-if value="{{d.isFlake}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 20 20"><g fill="none" stroke="{{d.c}}" stroke-width="1.4" stroke-linecap="round"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"></path><path d="M8 3.2L10 5l2-1.8M8 16.8L10 15l2 1.8"></path></g></svg>
+        </sc-if>
+      </span>
+    </sc-for>
+  </sc-if>
+
+  <div aria-hidden="true">
+    <span class="snow" style="position: absolute; left: 44px; top: 150px; width: 4px; height: 4px; border-radius: 50%; background: #C3D0DD; animation-delay: 0s"></span>
+    <span class="snow" style="position: absolute; left: 150px; top: 200px; width: 3px; height: 3px; border-radius: 50%; background: #C3D0DD; animation-delay: 1.6s"></span>
+    <span class="snow" style="position: absolute; left: 318px; top: 170px; width: 5px; height: 5px; border-radius: 50%; background: #C3D0DD; animation-delay: 3s"></span>
+    <span class="snow" style="position: absolute; left: 262px; top: 250px; width: 3px; height: 3px; border-radius: 50%; background: #C3D0DD; animation-delay: 4.4s"></span>
+    <span class="snow" style="position: absolute; left: 90px; top: 280px; width: 4px; height: 4px; border-radius: 50%; background: #C3D0DD; animation-delay: 2.2s"></span>
+  </div>
+
+  <header style="position: absolute; left: 20px; top: 22px; width: 350px; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; align-items: flex-start; justify-content: space-between">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <h1 style="margin: 0; font-size: 30px; font-weight: 700; letter-spacing: -0.02em">발자취</h1>
+        <span style="font-size: 13px; color: #55626F">2026 · 큰 발자국 4 · 작은 발자국 5 · 25걸음</span>
+      </div>
+      <button aria-label="내 정보" style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid #CCD6E0; background: #FFFFFF; display: grid; place-items: center; color: #1F2A36; cursor: pointer; padding: 0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6"></circle><path d="M5 20c1.2-3.6 3.9-5.6 7-5.6s5.8 2 7 5.6"></path></svg>
+      </button>
+    </div>
+    <div aria-label="올해의 계절 · 지금은 가을" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px">
+      <div style="display: flex; flex-direction: column; gap: 5px"><span style="height: 4px; border-radius: 2px; background: #EBA7BA"></span><span style="font-size: 12px; color: #55626F">봄</span></div>
+      <div style="display: flex; flex-direction: column; gap: 5px"><span style="height: 4px; border-radius: 2px; background: #86B672"></span><span style="font-size: 12px; color: #55626F">여름</span></div>
+      <div style="display: flex; flex-direction: column; gap: 5px"><span style="position: relative; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #D9733A 44%, rgba(217, 115, 58, 0.28) 44%)"><span style="position: absolute; left: 44%; top: -4px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: #1F2A36; box-shadow: 0 0 0 3px #F2F5F8"></span></span><span style="font-size: 12px; font-weight: 700; color: #1F2A36">가을 · 지금</span></div>
+      <div style="display: flex; flex-direction: column; gap: 5px"><span style="height: 4px; border-radius: 2px; background: #D3DDE7"></span><span style="font-size: 12px; color: #55626F">겨울</span></div>
+    </div>
+  </header>
+
+  <!-- 월 경계 · 계절 표시 -->
+  <div style="position: absolute; left: 20px; top: 165px; width: 350px; border-top: 1px dashed #CBD5DF; padding-top: 10px; display: flex; align-items: baseline; gap: 8px">
+    <span style="font-size: 14px; color: #3E4C5A">11–12월</span>
+    <span style="font-size: 13px; font-style: italic; color: #55626F">아직 걷지 않은 길</span>
+    <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; font-size: 12px; color: #55626F"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true"><g fill="none" stroke="#8FA4BA" stroke-width="1.6" stroke-linecap="round"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"></path></g></svg>겨울이 오는 중</span>
+  </div>
+  <div style="position: absolute; left: 20px; top: 400px; width: 350px; border-top: 1px solid rgba(31, 42, 54, 0.14); padding-top: 10px; display: flex; align-items: baseline; gap: 8px">
+    <span style="font-size: 16px; font-weight: 700">10월</span>
+    <span style="font-size: 13px; color: #55626F">지금 걷는 중</span>
+    <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: #8A4A1E"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l2.1 4.3 3.1-1.2-.9 4.4 4.6.6-3.3 3.3 1.4 3.4-4.4-.9-.8 4.1h-3.6l-.8-4.1-4.4.9 1.4-3.4-3.3-3.3 4.6-.6-.9-4.4 3.1 1.2z" fill="#D9733A"></path></svg>가을</span>
+  </div>
+  <div style="position: absolute; left: 20px; top: 660px; width: 350px; border-top: 1px solid rgba(31, 42, 54, 0.14); padding-top: 10px; display: flex; align-items: baseline; gap: 8px">
+    <span style="font-size: 16px; font-weight: 700">9월</span>
+  </div>
+  <div style="position: absolute; left: 20px; top: 1000px; width: 350px; border-top: 1px dashed rgba(31, 42, 54, 0.18); padding-top: 10px; display: flex; align-items: baseline; gap: 8px">
+    <span style="font-size: 14px; color: #3E4C5A">6–8월</span>
+    <span style="font-size: 13px; font-style: italic; color: #55626F">초록이 덮은 시간</span>
+    <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: #3F6B2F"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6FA35E" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"></path></svg>여름</span>
+  </div>
+  <div style="position: absolute; left: 20px; top: 1470px; width: 350px; border-top: 1px solid rgba(31, 42, 54, 0.14); padding-top: 10px; display: flex; align-items: baseline; gap: 8px">
+    <span style="font-size: 16px; font-weight: 700">5월</span>
+    <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: #A0405E"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true"><g fill="#EBA7BA"><circle cx="10" cy="5.2" r="3.6"></circle><circle cx="14.6" cy="8.5" r="3.6"></circle><circle cx="12.8" cy="13.9" r="3.6"></circle><circle cx="7.2" cy="13.9" r="3.6"></circle><circle cx="5.4" cy="8.5" r="3.6"></circle></g><circle cx="10" cy="10" r="2.6" fill="#F3CE5E"></circle></svg>봄</span>
+  </div>
+  <div style="position: absolute; left: 20px; top: 1800px; width: 350px; border-top: 1px dashed rgba(31, 42, 54, 0.18); padding-top: 10px; display: flex; align-items: baseline; gap: 8px">
+    <span style="font-size: 14px; color: #3E4C5A">4월</span>
+    <span style="font-size: 13px; font-style: italic; color: #55626F">꽃잎이 덮은 시간</span>
+  </div>
+  <div style="position: absolute; left: 20px; top: 1880px; width: 350px; border-top: 1px solid rgba(31, 42, 54, 0.14); padding-top: 10px; display: flex; align-items: baseline; gap: 8px">
+    <span style="font-size: 16px; font-weight: 700">3월</span>
+  </div>
+  <div style="position: absolute; left: 20px; top: 2262px; width: 350px; display: flex; justify-content: flex-end">
+    <span style="display: flex; align-items: center; gap: 5px; font-size: 12px; color: #55626F"><svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true"><g fill="none" stroke="#8FA4BA" stroke-width="1.6" stroke-linecap="round"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"></path></g></svg>늦겨울 · 눈이 녹던 길</span>
+  </div>
+
+  <!-- 걸어온 길 -->
+  <sc-for list="{{steps}}" as="s" hint-placeholder-count="40">
+    <svg aria-hidden="true" width="10" height="17.5" viewBox="0 0 16 28" style="position: absolute; left: {{s.l}}px; top: {{s.t}}px; opacity: {{s.o}}; transform: rotate({{s.r}}deg)">
+      <g fill="{{s.c}}"><path d="M8 1C11.6 1 14 4.2 14 8.6c0 3.8-1.8 6.4-2.6 8.4H4.6C3.8 15 2 12.4 2 8.6 2 4.2 4.4 1 8 1z"></path><path d="M4.8 19.2h6.4c.4 1.2.6 2.4.6 3.4 0 2.4-1.7 4.4-3.8 4.4S4.2 25 4.2 22.6c0-1 .2-2.2.6-3.4z"></path></g>
+    </svg>
+  </sc-for>
+
+  <!-- 아직 걷지 않은 길 -->
+  <sc-for list="{{ghost}}" as="g" hint-placeholder-count="5">
+    <svg aria-hidden="true" width="10" height="17.5" viewBox="0 0 16 28" style="position: absolute; left: {{g.l}}px; top: {{g.t}}px; opacity: {{g.o}}; transform: rotate({{g.r}}deg)">
+      <g fill="none" stroke="#8FA4BA" stroke-width="1.6" stroke-dasharray="2.5 2.5"><path d="M8 1C11.6 1 14 4.2 14 8.6c0 3.8-1.8 6.4-2.6 8.4H4.6C3.8 15 2 12.4 2 8.6 2 4.2 4.4 1 8 1z"></path><path d="M4.8 19.2h6.4c.4 1.2.6 2.4.6 3.4 0 2.4-1.7 4.4-3.8 4.4S4.2 25 4.2 22.6c0-1 .2-2.2.6-3.4z"></path></g>
+    </svg>
+  </sc-for>
+
+  <!-- 발자취 -->
+  <sc-for list="{{entries}}" as="e" hint-placeholder-count="9">
+    <sc-if value="{{e.big}}" hint-placeholder-val="{{ true }}">
+      <span aria-hidden="true" style="position: absolute; left: {{e.gl}}px; top: {{e.gt}}px; width: 124px; height: 124px; border-radius: 50%; background: radial-gradient(circle, rgba({{e.glow}}, 0.24) 0%, rgba({{e.glow}}, 0) 68%)"></span>
+      <svg aria-hidden="true" width="52" height="52" viewBox="0 0 40 40" style="position: absolute; left: {{e.pl}}px; top: {{e.pt}}px; opacity: {{e.o}}; transform: rotate({{e.r}}deg)">
+        <g transform="translate(2 10)"><g transform="translate(0 -1.2)" fill="{{e.shade}}"><path d="M8 1C11.6 1 14 4.2 14 8.6c0 3.8-1.8 6.4-2.6 8.4H4.6C3.8 15 2 12.4 2 8.6 2 4.2 4.4 1 8 1z"></path><path d="M4.8 19.2h6.4c.4 1.2.6 2.4.6 3.4 0 2.4-1.7 4.4-3.8 4.4S4.2 25 4.2 22.6c0-1 .2-2.2.6-3.4z"></path></g><g fill="{{e.tint}}" opacity="0.64"><path d="M8 1C11.6 1 14 4.2 14 8.6c0 3.8-1.8 6.4-2.6 8.4H4.6C3.8 15 2 12.4 2 8.6 2 4.2 4.4 1 8 1z"></path><path d="M4.8 19.2h6.4c.4 1.2.6 2.4.6 3.4 0 2.4-1.7 4.4-3.8 4.4S4.2 25 4.2 22.6c0-1 .2-2.2.6-3.4z"></path></g></g>
+        <g transform="translate(20 2)"><g transform="translate(0 -1.2)" fill="{{e.shade}}"><path d="M8 1C11.6 1 14 4.2 14 8.6c0 3.8-1.8 6.4-2.6 8.4H4.6C3.8 15 2 12.4 2 8.6 2 4.2 4.4 1 8 1z"></path><path d="M4.8 19.2h6.4c.4 1.2.6 2.4.6 3.4 0 2.4-1.7 4.4-3.8 4.4S4.2 25 4.2 22.6c0-1 .2-2.2.6-3.4z"></path></g><g fill="{{e.tint}}" opacity="0.64"><path d="M8 1C11.6 1 14 4.2 14 8.6c0 3.8-1.8 6.4-2.6 8.4H4.6C3.8 15 2 12.4 2 8.6 2 4.2 4.4 1 8 1z"></path><path d="M4.8 19.2h6.4c.4 1.2.6 2.4.6 3.4 0 2.4-1.7 4.4-3.8 4.4S4.2 25 4.2 22.6c0-1 .2-2.2.6-3.4z"></path></g></g>
+      </svg>
+      <div style="position: absolute; left: {{e.ll}}px; top: {{e.lt}}px; width: {{e.lw}}px; display: flex; flex-direction: column; align-items: {{e.ai}}; gap: 5px; text-align: {{e.ta}}">
+        <span style="font-size: 12px; color: #55626F"><span style="color: {{e.text}}; font-weight: 700">{{e.cat}}</span> · {{e.date}}</span>
+        <span style="font-size: 18px; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em">{{e.title}}</span>
+        <span style="font-size: 13px; line-height: 1.55; color: #4A5866">{{e.desc}}</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{e.small}}" hint-placeholder-val="{{ false }}">
+      <svg aria-hidden="true" width="14.4" height="25.2" viewBox="0 0 16 28" style="position: absolute; left: {{e.pl}}px; top: {{e.pt}}px; opacity: {{e.o}}; transform: rotate({{e.r}}deg)">
+        <g transform="translate(0 -1)" fill="{{e.shade}}"><path d="M8 1C11.6 1 14 4.2 14 8.6c0 3.8-1.8 6.4-2.6 8.4H4.6C3.8 15 2 12.4 2 8.6 2 4.2 4.4 1 8 1z"></path><path d="M4.8 19.2h6.4c.4 1.2.6 2.4.6 3.4 0 2.4-1.7 4.4-3.8 4.4S4.2 25 4.2 22.6c0-1 .2-2.2.6-3.4z"></path></g>
+        <g fill="{{e.tint}}" opacity="0.5"><path d="M8 1C11.6 1 14 4.2 14 8.6c0 3.8-1.8 6.4-2.6 8.4H4.6C3.8 15 2 12.4 2 8.6 2 4.2 4.4 1 8 1z"></path><path d="M4.8 19.2h6.4c.4 1.2.6 2.4.6 3.4 0 2.4-1.7 4.4-3.8 4.4S4.2 25 4.2 22.6c0-1 .2-2.2.6-3.4z"></path></g>
+      </svg>
+      <div style="position: absolute; left: {{e.ll}}px; top: {{e.lt}}px; width: {{e.lw}}px; display: flex; flex-direction: column; align-items: {{e.ai}}; gap: 3px; text-align: {{e.ta}}">
+        <span style="font-size: 14px; line-height: 1.4">{{e.title}}</span>
+        <span style="font-size: 12px; color: #55626F"><span style="color: {{e.text}}">{{e.cat}}</span> · {{e.date}}</span>
+      </div>
+    </sc-if>
+  </sc-for>
+
+  <!-- 지금 여기 -->
+  <span class="breathe" aria-hidden="true" style="position: absolute; left: 225px; top: 433px; width: 14px; height: 14px; border-radius: 50%; background: #1F2A36"></span>
+  <span aria-hidden="true" style="position: absolute; left: 227px; top: 435px; width: 10px; height: 10px; border-radius: 50%; background: #1F2A36; box-shadow: 0 0 0 4px #F6EADA"></span>
+  <span style="position: absolute; left: 250px; top: 431px; font-size: 13px; font-weight: 700; color: #1F2A36">지금 여기</span>
+
+  <!-- 출발 -->
+  <span aria-hidden="true" style="position: absolute; left: 169px; top: 2334px; width: 12px; height: 12px; box-sizing: border-box; border-radius: 50%; border: 2px solid #1F2A36; background: #F2F5F8"></span>
+  <span style="position: absolute; left: 190px; top: 2330px; font-size: 13px; color: #3E4C5A">2026.03.23 · 출발</span>
+
+  <a href="#" style="position: absolute; left: 95px; bottom: 24px; width: 200px; height: 52px; border-radius: 26px; background: #1F2A36; color: #FFFFFF; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 16px; font-weight: 700; text-decoration: none; box-shadow: 0 8px 24px rgba(31, 42, 54, 0.18)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+    발자국 남기기
+  </a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"fadeOld":{"editor":"boolean","default":true},"seasonDecor":{"editor":"boolean","default":true},"$preview":{"width":390,"height":2440}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const fade = this.props.fadeOld ?? true;
+    const decoOn = this.props.seasonDecor ?? true;
+    const CAT = {
+      achieve: { label: '업적', tint: '#D9A21B', text: '#7A5800', glow: '217, 162, 27' },
+      project: { label: '프로젝트', tint: '#3D6FD8', text: '#2F5BC0', glow: '61, 111, 216' },
+      growth: { label: '성장', tint: '#2E9E7A', text: '#1A6B50', glow: '46, 158, 122' },
+      change: { label: '변화', tint: '#D2557F', text: '#B23A63', glow: '210, 85, 127' }
+    };
+    const GROUND = {
+      snow: { step: '#C3CEDA', shade: '#B3C1CF' },
+      autumn: { step: '#D3BB9B', shade: '#BFA07A' },
+      summer: { step: '#A5C391', shade: '#8DAF78' },
+      spring: { step: '#E0C1C5', shade: '#CBA3AA' }
+    };
+    const season = (y) => (y < 380 ? 'snow' : y < 990 ? 'autumn' : y < 1460 ? 'summer' : y < 2250 ? 'spring' : 'snow');
+
+    // 출발(아래) → 지금(위) 순서의 길 위 지점
+    const pts = [[175, 2340], [140, 2210], [190, 2115], [236, 2040], [258, 1960], [230, 1880], [180, 1800], [135, 1690], [214, 1580], [170, 1460], [240, 1230], [165, 1000], [132, 860], [200, 750], [236, 660], [262, 540], [232, 440]];
+    const ghostPts = [[232, 440], [222, 390], [208, 330], [214, 270], [228, 215]];
+
+    const sampleCR = (P, spacing) => {
+      const out = [];
+      let acc = spacing * 0.5;
+      let prev = null;
+      for (let i = 0; i < P.length - 1; i++) {
+        const p0 = P[Math.max(i - 1, 0)], p1 = P[i], p2 = P[i + 1], p3 = P[Math.min(i + 2, P.length - 1)];
+        for (let s = 0; s <= 24; s++) {
+          if (i > 0 && s === 0) continue;
+          const t = s / 24, t2 = t * t, t3 = t2 * t;
+          const f = (a, b, c, d) => 0.5 * (2 * b + (-a + c) * t + (2 * a - 5 * b + 4 * c - d) * t2 + (-a + 3 * b - 3 * c + d) * t3);
+          const x = f(p0[0], p1[0], p2[0], p3[0]);
+          const y = f(p0[1], p1[1], p2[1], p3[1]);
+          if (prev) {
+            acc += Math.hypot(x - prev[0], y - prev[1]);
+            if (acc >= spacing) {
+              acc = 0;
+              out.push({ x: x, y: y, ang: Math.atan2(y - prev[1], x - prev[0]) });
+            }
+          }
+          prev = [x, y];
+        }
+      }
+      return out;
+    };
+
+    const E = [
+      { x: 262, y: 540, big: true, cat: 'project', date: '10.10', title: '발자취 프로젝트 구상 시작', desc: '걸어온 길을 남기는 앱을 그리기 시작' },
+      { x: 200, y: 750, big: false, cat: 'achieve', date: '09.16', title: '커스텀 스킬 10개 달성' },
+      { x: 132, y: 860, big: true, cat: 'achieve', date: '09.16', title: '올마이티 스킬 공개', desc: '먼저 제안하고 끝까지 책임지는 모드' },
+      { x: 214, y: 1580, big: false, cat: 'project', date: '05.15', title: 'README 스킬 목록 정리' },
+      { x: 135, y: 1690, big: true, cat: 'growth', date: '05.15', title: 'agent-web-guide 공개', desc: '에이전트를 웹에 붙이는 법을 정리' },
+      { x: 258, y: 1960, big: false, cat: 'project', date: '03.30', title: 'blog_post callout 가이드 확장' },
+      { x: 236, y: 2040, big: false, cat: 'project', date: '03.24', title: 'work-manager · summary 추가' },
+      { x: 190, y: 2115, big: false, cat: 'growth', date: '03.23', title: '첫 이식 스킬 agent-browser' },
+      { x: 140, y: 2210, big: true, cat: 'change', date: '03.23', title: '반복 작업을 스킬로 자동화하기 시작', desc: '스킬 레포를 열고 첫 스킬 묶음을 올림' }
+    ];
+    const ageOf = (y) => Math.min(1, Math.max(0, (y - 440) / 1900));
+
+    const blocks = [
+      { x0: 0, y0: 0, x1: 390, y1: 150 },
+      { x0: 222, y0: 424, x1: 330, y1: 456 },
+      { x0: 150, y0: 2322, x1: 330, y1: 2352 },
+      { x0: 85, y0: 2350, x1: 305, y1: 2440 }
+    ];
+    [165, 400, 660, 1000, 1470, 1800, 1880, 2262].forEach((ly) => blocks.push({ x0: 14, y0: ly - 4, x1: 376, y1: ly + 32 }));
+
+    const entries = E.map((e) => {
+      const c = CAT[e.cat];
+      const g = GROUND[season(e.y)];
+      const i = pts.findIndex((p) => p[0] === e.x && p[1] === e.y);
+      const a = pts[Math.max(i - 1, 0)], b = pts[Math.min(i + 1, pts.length - 1)];
+      const rot = Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI + 90;
+      const onLeft = e.x > 195;
+      const off = e.big ? 42 : 22;
+      const ll = onLeft ? 20 : e.x + off;
+      const lw = onLeft ? e.x - off - 20 : 370 - (e.x + off);
+      const lt = e.big ? e.y - 34 : e.y - 16;
+      const pw = e.big ? 52 : 14.4, ph = e.big ? 52 : 25.2;
+      blocks.push({ x0: ll, y0: lt, x1: ll + lw, y1: lt + (e.big ? 120 : 46) });
+      blocks.push({ x0: e.x - pw / 2 - 10, y0: e.y - ph / 2 - 10, x1: e.x + pw / 2 + 10, y1: e.y + ph / 2 + 10 });
+      return {
+        big: e.big,
+        small: !e.big,
+        pl: (e.x - pw / 2).toFixed(1),
+        pt: (e.y - ph / 2).toFixed(1),
+        gl: e.x - 62,
+        gt: e.y - 62,
+        r: rot.toFixed(1),
+        o: fade ? (1 - ageOf(e.y) * 0.45).toFixed(2) : '1',
+        shade: g.shade,
+        tint: c.tint,
+        glow: c.glow,
+        text: c.text,
+        cat: c.label,
+        date: e.date,
+        title: e.title,
+        desc: e.desc || '',
+        ll: ll,
+        lt: lt,
+        lw: lw,
+        ai: onLeft ? 'flex-end' : 'flex-start',
+        ta: onLeft ? 'right' : 'left'
+      };
+    });
+
+    const near = (x, y, r) => E.some((e) => Math.hypot(e.x - x, e.y - y) < (e.big ? 40 : 24) + r);
+    const steps = [];
+    sampleCR(pts, 34).forEach((p, idx) => {
+      if (p.y > 2326 || near(p.x, p.y, 0) || Math.hypot(p.x - 232, p.y - 440) < 26) return;
+      const side = idx % 2 === 0 ? 1 : -1;
+      const x = p.x - Math.sin(p.ang) * side * 7;
+      const y = p.y + Math.cos(p.ang) * side * 7;
+      const quiet = (p.y > 1000 && p.y < 1460) || (p.y > 1800 && p.y < 1880);
+      let o = fade ? 0.95 - ageOf(p.y) * 0.6 : 0.9;
+      if (quiet) o = o * 0.55;
+      steps.push({ l: (x - 5).toFixed(1), t: (y - 8.75).toFixed(1), r: (p.ang * 180 / Math.PI + 90).toFixed(1), o: o.toFixed(2), c: GROUND[season(p.y)].step });
+    });
+
+    const ghost = sampleCR(ghostPts, 36).filter((p) => p.y < 420).map((p, idx) => {
+      const side = idx % 2 === 0 ? -1 : 1;
+      const x = p.x - Math.sin(p.ang) * side * 7;
+      const y = p.y + Math.cos(p.ang) * side * 7;
+      return { l: (x - 5).toFixed(1), t: (y - 8.75).toFixed(1), r: (p.ang * 180 / Math.PI + 90).toFixed(1), o: (0.85 - idx * 0.14).toFixed(2) };
+    });
+
+    const trail = sampleCR(pts, 10).concat(sampleCR(ghostPts, 10));
+    let seed = 20261010;
+    const rnd = () => {
+      seed = (seed * 16807) % 2147483647;
+      return (seed - 1) / 2147483646;
+    };
+    const pick = (arr) => arr[Math.floor(rnd() * arr.length)];
+    const zones = [
+      { y0: 150, y1: 372, n: 12, kinds: ['flake'], colors: ['#BCCADA', '#C8D4E1'] },
+      { y0: 410, y1: 985, n: 38, kinds: ['leaf', 'maple', 'leaf'], colors: ['#D9733A', '#C2492C', '#E3A33B', '#B86A2B'] },
+      { y0: 1015, y1: 1452, n: 36, kinds: ['grass', 'grass', 'grass', 'flower'], colors: ['#86B672', '#6FA35E', '#9CC788'] },
+      { y0: 1490, y1: 2240, n: 46, kinds: ['petal', 'petal', 'petal', 'flower'], colors: ['#F0ACBF', '#F6C6D2', '#EB9DB4'] },
+      { y0: 2272, y1: 2430, n: 10, kinds: ['flake'], colors: ['#BCCADA', '#C8D4E1'] }
+    ];
+    const deco = [];
+    zones.forEach((z) => {
+      let made = 0, tries = 0;
+      while (made < z.n && tries < z.n * 10) {
+        tries += 1;
+        const x = 6 + rnd() * 378;
+        const y = z.y0 + rnd() * (z.y1 - z.y0);
+        const kind = pick(z.kinds);
+        const s = kind === 'petal' ? 8 + rnd() * 5 : kind === 'flake' ? 9 + rnd() * 5 : kind === 'flower' ? 11 + rnd() * 5 : 12 + rnd() * 7;
+        if (trail.some((p) => Math.abs(p.y - y) < 30 && Math.hypot(p.x - x, p.y - y) < 26)) continue;
+        if (blocks.some((b) => x + s > b.x0 - 4 && x < b.x1 + 4 && y + s > b.y0 - 4 && y < b.y1 + 4)) continue;
+        const flowerColor = z.y0 > 1400 ? '#F2B8C8' : '#FFFFFF';
+        deco.push({
+          l: x.toFixed(1),
+          t: y.toFixed(1),
+          s: s.toFixed(1),
+          r: kind === 'grass' ? Math.round(rnd() * 20 - 10) : Math.round(rnd() * 360),
+          o: (0.55 + rnd() * 0.35).toFixed(2),
+          c: kind === 'flower' ? flowerColor : pick(z.colors),
+          isLeaf: kind === 'leaf',
+          isMaple: kind === 'maple',
+          isPetal: kind === 'petal',
+          isFlower: kind === 'flower',
+          isGrass: kind === 'grass',
+          isFlake: kind === 'flake'
+        });
+        made += 1;
+      }
+    });
+
+    return { decoOn: decoOn, deco: deco, steps: steps, ghost: ghost, entries: entries };
+  }
+}
+</script>
+</body>
+</html>
