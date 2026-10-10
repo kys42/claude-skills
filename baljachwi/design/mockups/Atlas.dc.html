@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>발자취 · 탐험 지도</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700&amp;family=Hahmlet:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0E13}
+a{color:#9CC2FF}a:hover{color:#C9DCFF}
+@keyframes nowPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
+.now-pulse{animation:nowPulse 2s ease-out infinite}
+</style>
+</helmet>
+<div style="min-height: 100vh; box-sizing: border-box; background: #0B0E13; color: #E8ECF2; font-family: 'Gothic A1', 'Apple SD Gothic Neo', sans-serif; padding-bottom: 48px">
+  <div style="max-width: 1440px; margin: 0 auto; padding: 0 clamp(16px, 3.4vw, 48px); box-sizing: border-box">
+
+    <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding: 22px 0 20px">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" fill="#E8ECF2"><g transform="rotate(-10 7 15)"><ellipse cx="7" cy="12" rx="3.1" ry="4.5"></ellipse><ellipse cx="7" cy="19.6" rx="2.3" ry="2.2"></ellipse></g><g transform="rotate(10 17 9)"><ellipse cx="17" cy="6.2" rx="3.1" ry="4.5"></ellipse><ellipse cx="17" cy="13.8" rx="2.3" ry="2.2"></ellipse></g></svg>
+        <span style="font-family: 'Hahmlet', serif; font-size: 22px; font-weight: 700; letter-spacing: -0.02em">발자취</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: #8B95A5; padding-left: 4px">ATLAS</span>
+      </div>
+      <div style="display: flex; padding: 4px; border-radius: 12px; background: #141A22; border: 1px solid #1F2731">
+        <button aria-pressed="true" style="height: 36px; padding: 0 16px; border: 0; border-radius: 9px; background: #232C38; color: #E8ECF2; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">지도</button>
+        <button aria-pressed="false" style="height: 36px; padding: 0 16px; border: 0; border-radius: 9px; background: transparent; color: #AEB8C6; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer">목록</button>
+      </div>
+      <button style="height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #1F2731; background: transparent; color: #E8ECF2; font-family: 'JetBrains Mono', monospace; font-size: 14px; display: flex; align-items: center; gap: 8px; cursor: pointer">
+        2026
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+      </button>
+      <span style="flex: 1"></span>
+      <span style="font-size: 13px; color: #AEB8C6">Lv.5 개척자 · <span style="font-family: 'JetBrains Mono', monospace; color: #E8ECF2">25</span> 걸음</span>
+      <button style="height: 44px; padding: 0 18px; border-radius: 12px; border: 0; background: #E8ECF2; color: #0B0E13; font-family: inherit; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; cursor: pointer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+        발자취 남기기
+      </button>
+    </header>
+
+    <section aria-label="2026년 탐험 지도" style="border-radius: 22px; border: 1px solid #1F2731; background: #0F141B; overflow-x: auto">
+      <div style="position: relative; width: 100%; min-width: 1100px; aspect-ratio: 1600 / 700">
+        <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid meet" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%">
+          <defs>
+            <pattern id="fog" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="#0D1117"></rect><rect width="3" height="12" fill="#141A22"></rect></pattern>
+            <radialGradient id="gA"><stop offset="0" stop-color="#FFC94D" stop-opacity="0.32"></stop><stop offset="1" stop-color="#FFC94D" stop-opacity="0"></stop></radialGradient>
+            <radialGradient id="gP"><stop offset="0" stop-color="#6EA8FF" stop-opacity="0.32"></stop><stop offset="1" stop-color="#6EA8FF" stop-opacity="0"></stop></radialGradient>
+            <radialGradient id="gG"><stop offset="0" stop-color="#5BE3A4" stop-opacity="0.3"></stop><stop offset="1" stop-color="#5BE3A4" stop-opacity="0"></stop></radialGradient>
+            <radialGradient id="gC"><stop offset="0" stop-color="#FF7A9C" stop-opacity="0.3"></stop><stop offset="1" stop-color="#FF7A9C" stop-opacity="0"></stop></radialGradient>
+          </defs>
+
+          <rect x="0" y="0" width="200" height="700" fill="#10161D"></rect>
+          <rect x="200" y="0" width="200" height="700" fill="url(#fog)"></rect>
+          <rect x="400" y="0" width="200" height="700" fill="#10161D"></rect>
+          <rect x="600" y="0" width="600" height="700" fill="url(#fog)"></rect>
+          <rect x="1200" y="0" width="200" height="700" fill="#10161D"></rect>
+          <rect x="1400" y="0" width="200" height="700" fill="#131B25"></rect>
+
+          <g stroke="#161E28" stroke-width="1">
+            <path d="M0 200H1600M0 300H1600M0 400H1600M0 500H1600M0 600H1600"></path>
+          </g>
+          <g stroke="#26303D" stroke-width="1.2" stroke-dasharray="2 7">
+            <path d="M200 110V700M400 110V700M600 110V700M800 110V700M1000 110V700M1200 110V700M1400 110V700"></path>
+          </g>
+
+          <g fill="none" stroke="#18212B" stroke-width="1.3">
+            <ellipse cx="900" cy="300" rx="90" ry="54" transform="rotate(-8 900 300)"></ellipse>
+            <ellipse cx="900" cy="300" rx="150" ry="92" transform="rotate(-8 900 300)"></ellipse>
+            <ellipse cx="900" cy="300" rx="215" ry="134" transform="rotate(-8 900 300)"></ellipse>
+            <ellipse cx="300" cy="610" rx="70" ry="38"></ellipse>
+            <ellipse cx="300" cy="610" rx="120" ry="66"></ellipse>
+            <ellipse cx="1110" cy="190" rx="60" ry="40" transform="rotate(12 1110 190)"></ellipse>
+            <ellipse cx="1110" cy="190" rx="105" ry="70" transform="rotate(12 1110 190)"></ellipse>
+            <ellipse cx="700" cy="640" rx="80" ry="34"></ellipse>
+            <ellipse cx="1520" cy="610" rx="70" ry="36"></ellipse>
+          </g>
+
+          <circle cx="70" cy="520" r="90" fill="url(#gC)"></circle>
+          <g fill="none" stroke-width="1.4" transform="rotate(-12 70 520)">
+            <ellipse cx="70" cy="520" rx="30" ry="21" stroke="#FF7A9C" stroke-opacity="0.6"></ellipse>
+            <ellipse cx="72" cy="518" rx="54" ry="37" stroke="#2C3846"></ellipse>
+            <ellipse cx="75" cy="516" rx="80" ry="54" stroke="#232D3A"></ellipse>
+            <ellipse cx="79" cy="513" rx="108" ry="72" stroke="#1C2530"></ellipse>
+          </g>
+
+          <circle cx="450" cy="340" r="95" fill="url(#gG)"></circle>
+          <g fill="none" stroke-width="1.4" transform="rotate(8 450 340)">
+            <ellipse cx="450" cy="340" rx="30" ry="21" stroke="#5BE3A4" stroke-opacity="0.6"></ellipse>
+            <ellipse cx="447" cy="342" rx="56" ry="38" stroke="#2C3846"></ellipse>
+            <ellipse cx="444" cy="345" rx="84" ry="56" stroke="#232D3A"></ellipse>
+            <ellipse cx="440" cy="348" rx="114" ry="76" stroke="#1C2530"></ellipse>
+          </g>
+
+          <circle cx="1280" cy="300" r="110" fill="url(#gA)"></circle>
+          <g fill="none" stroke-width="1.4" transform="rotate(-6 1280 300)">
+            <ellipse cx="1280" cy="300" rx="30" ry="21" stroke="#FFC94D" stroke-opacity="0.65"></ellipse>
+            <ellipse cx="1283" cy="302" rx="54" ry="37" stroke="#2C3846"></ellipse>
+            <ellipse cx="1287" cy="305" rx="80" ry="54" stroke="#262F3C"></ellipse>
+            <ellipse cx="1292" cy="309" rx="108" ry="72" stroke="#1F2833"></ellipse>
+            <ellipse cx="1298" cy="314" rx="138" ry="92" stroke="#1A222C"></ellipse>
+          </g>
+
+          <circle cx="1480" cy="330" r="95" fill="url(#gP)"></circle>
+          <g fill="none" stroke-width="1.4" transform="rotate(15 1480 330)">
+            <ellipse cx="1480" cy="330" rx="30" ry="21" stroke="#6EA8FF" stroke-opacity="0.65"></ellipse>
+            <ellipse cx="1477" cy="333" rx="54" ry="37" stroke="#2C3846"></ellipse>
+            <ellipse cx="1474" cy="336" rx="80" ry="54" stroke="#232D3A"></ellipse>
+          </g>
+
+          <g fill="none" stroke="#222B37" stroke-width="1.2">
+            <circle cx="115" cy="470" r="15"></circle>
+            <circle cx="150" cy="410" r="15"></circle>
+            <circle cx="190" cy="360" r="15"></circle>
+            <circle cx="540" cy="420" r="15"></circle>
+            <circle cx="1350" cy="400" r="15"></circle>
+          </g>
+
+          <g fill="none" stroke="#7D8DA3" stroke-width="4" stroke-linecap="round">
+            <path transform="translate(0 -3.5)" stroke-dasharray="5 13" d="M20 470 C28.3 478.3 54.2 520 70 520 C85.8 520 101.7 488.3 115 470 C128.3 451.7 137.5 428.3 150 410 C162.5 391.7 165 358.3 190 360 C215 361.7 256.7 423.3 300 420 C343.3 416.7 410 340 450 340 C490 340 501.7 390 540 420 C578.3 450 620 511.7 680 520 C740 528.3 830 466.7 900 470 C970 473.3 1036.7 568.3 1100 540 C1163.3 511.7 1238.3 323.3 1280 300 C1321.7 276.7 1316.7 395 1350 400 C1383.3 405 1441.7 353.3 1480 330"></path>
+            <path transform="translate(0 3.5)" stroke-dasharray="5 13" stroke-dashoffset="9" d="M20 470 C28.3 478.3 54.2 520 70 520 C85.8 520 101.7 488.3 115 470 C128.3 451.7 137.5 428.3 150 410 C162.5 391.7 165 358.3 190 360 C215 361.7 256.7 423.3 300 420 C343.3 416.7 410 340 450 340 C490 340 501.7 390 540 420 C578.3 450 620 511.7 680 520 C740 528.3 830 466.7 900 470 C970 473.3 1036.7 568.3 1100 540 C1163.3 511.7 1238.3 323.3 1280 300 C1321.7 276.7 1316.7 395 1350 400 C1383.3 405 1441.7 353.3 1480 330"></path>
+          </g>
+          <path d="M1480 330 C1518.3 306.7 1563.3 271.7 1580 260" fill="none" stroke="#4A5668" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 9"></path>
+
+          <g font-family="JetBrains Mono, monospace" font-size="30" font-weight="500">
+            <text x="20" y="58" fill="#E8ECF2">03</text>
+            <text x="220" y="58" fill="#4A5566">04</text>
+            <text x="420" y="58" fill="#E8ECF2">05</text>
+            <text x="620" y="58" fill="#4A5566">06</text>
+            <text x="820" y="58" fill="#4A5566">07</text>
+            <text x="1020" y="58" fill="#4A5566">08</text>
+            <text x="1220" y="58" fill="#E8ECF2">09</text>
+            <text x="1420" y="58" fill="#E8ECF2">10</text>
+          </g>
+          <g font-family="Hahmlet, serif" font-size="15">
+            <text x="20" y="84" fill="#AEB8C6">첫 걸음의 땅</text>
+            <text x="220" y="84" fill="#8B95A5">기록 없음</text>
+            <text x="420" y="84" fill="#AEB8C6">웹으로 난 길</text>
+            <text x="620" y="84" fill="#8B95A5">기록 없음</text>
+            <text x="820" y="84" fill="#8B95A5">기록 없음</text>
+            <text x="1020" y="84" fill="#8B95A5">기록 없음</text>
+            <text x="1220" y="84" fill="#AEB8C6">올마이티 봉우리</text>
+            <text x="1420" y="84" fill="#E8ECF2">지금 걷는 곳</text>
+          </g>
+          <text x="900" y="622" text-anchor="middle" font-family="Hahmlet, serif" font-size="16" font-style="italic" fill="#8B95A5">안개 속의 석 달 — 걸음은 이어졌지만 남긴 기록은 없어요</text>
+
+          <g transform="translate(28 660)">
+            <path d="M0 0H200" stroke="#8B95A5" stroke-width="1.5"></path>
+            <path d="M0 -6V6M100 -4V4M200 -6V6" stroke="#8B95A5" stroke-width="1.5"></path>
+            <text x="212" y="5" font-family="JetBrains Mono, monospace" font-size="13" fill="#8B95A5">1개월</text>
+          </g>
+          <g transform="translate(1560 650)">
+            <circle r="20" fill="none" stroke="#2C3846" stroke-width="1.2"></circle>
+            <path d="M0 -15L5 0L0 15L-5 0Z" fill="#2C3846"></path>
+            <path d="M0 -15L5 0L-5 0Z" fill="#AEB8C6"></path>
+            <text y="-26" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#AEB8C6">N</text>
+          </g>
+        </svg>
+
+        <sc-for list="{{nodes}}" as="n" hint-placeholder-count="9">
+          <sc-if value="{{n.isNow}}" hint-placeholder-val="{{ false }}">
+            <span class="now-pulse" aria-hidden="true" style="position: absolute; left: {{n.left}}%; top: {{n.top}}%; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; background: {{n.color}}"></span>
+            <span style="position: absolute; left: {{n.left}}%; top: calc({{n.top}}% - 46px); transform: translateX(-50%); height: 24px; padding: 0 10px; border-radius: 12px; background: #E8ECF2; color: #0B0E13; font-size: 12px; font-weight: 700; display: flex; align-items: center; white-space: nowrap">지금 여기</span>
+          </sc-if>
+          <button aria-label="{{n.aria}}" aria-pressed="{{n.pressed}}" onClick="{{n.pick}}" style="position: absolute; left: {{n.left}}%; top: {{n.top}}%; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; background: transparent; display: grid; place-items: center; cursor: pointer">
+            <sc-if value="{{n.big}}" hint-placeholder-val="{{ true }}">
+              <span style="width: 34px; height: 34px; border-radius: 50%; background: {{n.color}}; box-shadow: {{n.ring}}; display: grid; place-items: center">
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="#0B0E13"><g transform="rotate(-10 7 15)"><ellipse cx="7" cy="12" rx="3.1" ry="4.5"></ellipse><ellipse cx="7" cy="19.6" rx="2.3" ry="2.2"></ellipse></g><g transform="rotate(10 17 9)"><ellipse cx="17" cy="6.2" rx="3.1" ry="4.5"></ellipse><ellipse cx="17" cy="13.8" rx="2.3" ry="2.2"></ellipse></g></svg>
+              </span>
+            </sc-if>
+            <sc-if value="{{n.small}}" hint-placeholder-val="{{ false }}">
+              <span style="width: 13px; height: 13px; border-radius: 2px; transform: rotate(45deg); background: {{n.color}}; box-shadow: {{n.ring}}"></span>
+            </sc-if>
+          </button>
+          <sc-if value="{{n.big}}" hint-placeholder-val="{{ true }}">
+            <div style="position: absolute; left: {{n.lblLeft}}; top: {{n.lblTop}}; transform: {{n.lblTf}}; pointer-events: none; display: flex; flex-direction: column; gap: 3px; white-space: nowrap; padding: 7px 11px; border-radius: 10px; background: rgba(11, 14, 19, 0.82); border: 1px solid #222B37">
+              <span style="font-family: 'Hahmlet', serif; font-size: 14px; font-weight: 600; color: #E8ECF2">{{n.title}}</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: {{n.color}}">{{n.short}} · {{n.catLabel}}</span>
+            </div>
+          </sc-if>
+        </sc-for>
+      </div>
+    </section>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px">
+      <section aria-live="polite" style="flex: 2 1 520px; min-width: 0; box-sizing: border-box; padding: 28px; border-radius: 22px; background: #11161D; border: 1px solid #1F2731; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+          <span style="height: 28px; padding: 0 12px; border-radius: 14px; background: {{sel.tint}}; color: {{sel.color}}; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px"><span style="width: 7px; height: 7px; border-radius: 50%; background: {{sel.color}}"></span>{{sel.catLabel}}</span>
+          <span style="font-size: 13px; color: #AEB8C6">{{sel.sizeLabel}} · +{{sel.steps}} 걸음</span>
+          <span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8B95A5">{{sel.date}} · {{sel.month}} 영역</span>
+        </div>
+        <h2 style="margin: 0; font-family: 'Hahmlet', serif; font-size: 30px; font-weight: 600; line-height: 1.3; letter-spacing: -0.02em; text-wrap: balance">{{sel.title}}</h2>
+        <p style="margin: 0; max-width: 680px; font-size: 16px; line-height: 1.75; color: #C3CBD6; text-wrap: pretty">{{sel.desc}}</p>
+        <div style="margin-top: auto; padding-top: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8B95A5">{{idx}} / {{total}}</span>
+          <span style="flex: 1"></span>
+          <button onClick="{{prev}}" style="height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #2A3442; background: transparent; color: #E8ECF2; font-family: inherit; font-size: 14px; display: flex; align-items: center; gap: 8px; cursor: pointer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>
+            이전 발자취
+          </button>
+          <button onClick="{{next}}" style="height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #2A3442; background: transparent; color: #E8ECF2; font-family: inherit; font-size: 14px; display: flex; align-items: center; gap: 8px; cursor: pointer">
+            다음 발자취
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+      </section>
+
+      <aside style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+        <section style="box-sizing: border-box; padding: 22px 24px; border-radius: 22px; background: #11161D; border: 1px solid #1F2731; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; align-items: baseline; justify-content: space-between">
+            <span style="font-family: 'Hahmlet', serif; font-size: 20px; font-weight: 700">Lv.5 개척자</span>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #AEB8C6">25 / 30</span>
+          </div>
+          <div aria-hidden="true" style="display: flex; gap: 4px">
+            <span style="flex: 1; height: 6px; border-radius: 3px; background: #E8ECF2"></span>
+            <span style="flex: 1; height: 6px; border-radius: 3px; background: #E8ECF2"></span>
+            <span style="flex: 1; height: 6px; border-radius: 3px; background: #E8ECF2"></span>
+            <span style="flex: 1; height: 6px; border-radius: 3px; background: #252E3A"></span>
+            <span style="flex: 1; height: 6px; border-radius: 3px; background: #252E3A"></span>
+            <span style="flex: 1; height: 6px; border-radius: 3px; background: #252E3A"></span>
+            <span style="flex: 1; height: 6px; border-radius: 3px; background: #252E3A"></span>
+            <span style="flex: 1; height: 6px; border-radius: 3px; background: #252E3A"></span>
+          </div>
+          <span style="font-size: 13px; color: #AEB8C6">Lv.6 탐험가까지 5걸음 · 큰 발자취 +5, 작은 발자취 +1</span>
+        </section>
+
+        <section style="box-sizing: border-box; padding: 22px 24px; border-radius: 22px; background: #11161D; border: 1px solid #1F2731; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px">
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #FFC94D"></span>업적<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #AEB8C6">2</span></span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #6EA8FF"></span>프로젝트<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #AEB8C6">4</span></span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #5BE3A4"></span>성장<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #AEB8C6">2</span></span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #FF7A9C"></span>변화<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #AEB8C6">1</span></span>
+          <span style="grid-column: 1 / -1; height: 1px; background: #1F2731"></span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #AEB8C6"><span style="width: 14px; height: 14px; border-radius: 50%; background: #AEB8C6"></span>큰 발자취 · 봉우리</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #AEB8C6"><span style="width: 9px; height: 9px; margin: 0 2px; border-radius: 1px; transform: rotate(45deg); background: #AEB8C6"></span>작은 발자취</span>
+          <span style="grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; font-size: 13px; color: #AEB8C6"><span style="width: 22px; height: 12px; border-radius: 3px; background: repeating-linear-gradient(45deg, #1C242E 0 3px, #0F141B 3px 7px)"></span>빗금 지대 · 기록이 없는 달</span>
+        </section>
+      </aside>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1060}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sel: 8 };
+  }
+  renderVals() {
+    const C = {
+      achieve: { label: '업적', color: '#FFC94D', tint: 'rgba(255, 201, 77, 0.14)' },
+      project: { label: '프로젝트', color: '#6EA8FF', tint: 'rgba(110, 168, 255, 0.14)' },
+      growth: { label: '성장', color: '#5BE3A4', tint: 'rgba(91, 227, 164, 0.14)' },
+      change: { label: '변화', color: '#FF7A9C', tint: 'rgba(255, 122, 156, 0.14)' }
+    };
+    const D = [
+      { big: true, cat: 'change', x: 70, y: 520, place: 'right', month: '3월', date: '2026.03.23', title: '반복 작업을 스킬로 자동화하기 시작', desc: 'Claude Code 스킬 레포를 열고, 직접 만든 스킬 묶음을 처음 올렸다. 손으로 반복하던 일을 슬래시 커맨드 하나로 부르기 시작한 날.' },
+      { big: false, cat: 'growth', x: 115, y: 470, month: '3월', date: '2026.03.23', title: '첫 이식 스킬 agent-browser', desc: 'Vercel의 브라우저 자동화 CLI를 스킬로 가져왔다. 웹 탐색, 폼 작성, 스크린샷까지.' },
+      { big: false, cat: 'project', x: 150, y: 410, month: '3월', date: '2026.03.24', title: 'work-manager · summary 추가', desc: '이슈부터 머지까지 이어지는 개발 워크플로우 매니저와, 하루·한 주 작업을 정리하는 요약 스킬.' },
+      { big: false, cat: 'project', x: 190, y: 360, month: '3월', date: '2026.03.30', title: 'blog_post callout 가이드 확장', desc: '접기/펼치기, 리치 콘텐츠, 타입별 색상 테이블까지 callout 사용법을 넓혔다.' },
+      { big: true, cat: 'growth', x: 450, y: 340, place: 'right', month: '5월', date: '2026.05.15', title: 'agent-web-guide 공개', desc: '웹 서비스에 AI 에이전트 채팅을 붙이는 법. SSE 스트리밍, 도구 설계, 액션 시스템 아키텍처를 하나의 가이드로 정리했다.' },
+      { big: false, cat: 'project', x: 540, y: 420, month: '5월', date: '2026.05.15', title: 'README 스킬 목록 정리', desc: '새로 만든 스킬을 목록과 구조도에 반영했다.' },
+      { big: true, cat: 'achieve', x: 1280, y: 300, place: 'right', month: '9월', date: '2026.09.16', title: '올마이티 스킬 공개', desc: '핵심 의도와 프로젝트 맥락을 읽고, 함께 하면 좋은 개선을 먼저 제안하며 결과까지 책임지는 모드. Claude Code와 Codex 양쪽에서 쓴다.' },
+      { big: false, cat: 'achieve', x: 1350, y: 400, month: '9월', date: '2026.09.16', title: '커스텀 스킬 10개 달성', desc: '직접 만든 스킬이 열 개가 됐다.' },
+      { big: true, cat: 'project', x: 1480, y: 330, place: 'below', month: '10월', date: '2026.10.10', title: '발자취 프로젝트 구상 시작', desc: '업적과 변화를 개월 단위의 길 위에 남기는 앱. 지금은 어떤 모습이 좋을지 디자인 시안을 고르는 중.' }
+    ];
+    const sel = this.state.sel;
+    const last = D.length - 1;
+    const nodes = D.map((d, i) => {
+      const c = C[d.cat];
+      const left = (d.x / 16).toFixed(3);
+      const top = (d.y / 7).toFixed(3);
+      const on = i === sel;
+      const below = d.place === 'below';
+      return {
+        big: d.big,
+        small: !d.big,
+        isNow: i === last,
+        left: left,
+        top: top,
+        color: c.color,
+        catLabel: c.label,
+        title: d.title,
+        short: d.date.slice(5),
+        ring: on ? '0 0 0 4px #0F141B, 0 0 0 6px #FFFFFF' : '0 0 0 4px #0F141B',
+        pressed: on ? 'true' : 'false',
+        aria: (d.big ? '큰' : '작은') + ' 발자취, ' + c.label + ': ' + d.title,
+        lblLeft: below ? left + '%' : 'calc(' + left + '% + 26px)',
+        lblTop: below ? 'calc(' + top + '% + 30px)' : top + '%',
+        lblTf: below ? 'translateX(-50%)' : 'translateY(-50%)',
+        pick: () => this.setState({ sel: i })
+      };
+    });
+    const s = D[sel];
+    const sc = C[s.cat];
+    return {
+      nodes: nodes,
+      sel: {
+        title: s.title,
+        desc: s.desc,
+        date: s.date,
+        month: s.month,
+        catLabel: sc.label,
+        color: sc.color,
+        tint: sc.tint,
+        sizeLabel: s.big ? '큰 발자취' : '작은 발자취',
+        steps: s.big ? 5 : 1
+      },
+      idx: sel + 1,
+      total: D.length,
+      prev: () => this.setState({ sel: (sel + last) % D.length }),
+      next: () => this.setState({ sel: (sel + 1) % D.length })
+    };
+  }
+}
+</script>
+</body>
+</html>

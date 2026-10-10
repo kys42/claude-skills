@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>발자취 · 클린 — 발자취 남기기</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&amp;family=IBM+Plex+Sans+KR:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#15171C}a:hover{color:#2F5BEA}
+input::placeholder,textarea::placeholder{color:#8A8F97}
+input:focus,textarea:focus{outline:none;border-color:#15171C}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #FAFAF8; color: #15171C; font-family: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; display: flex; flex-direction: column">
+
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 12px 8px 0 8px">
+    <a href="Main.dc.html" aria-label="닫기" style="width: 44px; height: 44px; display: grid; place-items: center; color: #15171C">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </a>
+    <span style="font-size: 16px; font-weight: 600">발자취 남기기</span>
+    <span style="width: 44px"></span>
+  </header>
+
+  <div style="flex: 1; display: flex; flex-direction: column; gap: 24px; padding: 20px 20px 0">
+
+    <section style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 13px; font-weight: 600; color: #4A4F57">얼마나 큰 걸음이었나요?</span>
+      <div role="radiogroup" aria-label="발자취 크기" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <button role="radio" aria-checked="{{bigChecked}}" onClick="{{pickBig}}" style="text-align: left; padding: 16px; border-radius: 16px; border: {{bigBorder}}; background: #FFFFFF; font-family: inherit; color: #15171C; display: flex; flex-direction: column; gap: 10px; cursor: pointer">
+          <span style="width: 52px; height: 52px; border-radius: 50%; background: {{bigIconBg}}; color: {{bigIconFg}}; display: grid; place-items: center">
+            <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><g transform="rotate(-10 7 15)"><ellipse cx="7" cy="12" rx="3.1" ry="4.5"></ellipse><ellipse cx="7" cy="19.6" rx="2.3" ry="2.2"></ellipse></g><g transform="rotate(10 17 9)"><ellipse cx="17" cy="6.2" rx="3.1" ry="4.5"></ellipse><ellipse cx="17" cy="13.8" rx="2.3" ry="2.2"></ellipse></g></svg>
+          </span>
+          <span style="display: flex; flex-direction: column; gap: 3px">
+            <span style="font-size: 15px; font-weight: 600">큰 발자취</span>
+            <span style="font-size: 12px; line-height: 1.5; color: #6B7078">오래 기억할 성취와 전환점</span>
+          </span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; color: #4A4F57">+5 걸음</span>
+        </button>
+        <button role="radio" aria-checked="{{smallChecked}}" onClick="{{pickSmall}}" style="text-align: left; padding: 16px; border-radius: 16px; border: {{smallBorder}}; background: #FFFFFF; font-family: inherit; color: #15171C; display: flex; flex-direction: column; gap: 10px; cursor: pointer">
+          <span style="width: 52px; height: 52px; border-radius: 50%; background: {{smallIconBg}}; color: {{smallIconFg}}; display: grid; place-items: center">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><g transform="rotate(-10 7 15)"><ellipse cx="7" cy="12" rx="3.1" ry="4.5"></ellipse><ellipse cx="7" cy="19.6" rx="2.3" ry="2.2"></ellipse></g><g transform="rotate(10 17 9)"><ellipse cx="17" cy="6.2" rx="3.1" ry="4.5"></ellipse><ellipse cx="17" cy="13.8" rx="2.3" ry="2.2"></ellipse></g></svg>
+          </span>
+          <span style="display: flex; flex-direction: column; gap: 3px">
+            <span style="font-size: 15px; font-weight: 600">작은 발자취</span>
+            <span style="font-size: 12px; line-height: 1.5; color: #6B7078">자잘한 진척, 한 줄이면 충분</span>
+          </span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; color: #4A4F57">+1 걸음</span>
+        </button>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 13px; font-weight: 600; color: #4A4F57">카테고리</span>
+      <div role="radiogroup" aria-label="카테고리" style="display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{cats}}" as="c" hint-placeholder-count="4">
+          <button role="radio" aria-checked="{{c.checked}}" onClick="{{c.pick}}" style="height: 44px; padding: 0 16px; border-radius: 22px; border: {{c.border}}; background: {{c.bg}}; color: #15171C; font-family: inherit; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 7px; cursor: pointer">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: {{c.color}}"></span>
+            {{c.label}}
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <sc-if value="{{isBig}}" hint-placeholder-val="{{ true }}">
+      <section style="display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="fp-title" style="font-size: 13px; font-weight: 600; color: #4A4F57">제목</label>
+          <input id="fp-title" type="text" placeholder="예) 첫 사이드 프로젝트 출시" style="height: 52px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #E2E2DE; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #15171C">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="fp-story" style="font-size: 13px; font-weight: 600; color: #4A4F57">어떤 의미였나요?</label>
+          <textarea id="fp-story" placeholder="무엇이 달라졌는지, 왜 기억하고 싶은지" style="height: 96px; box-sizing: border-box; padding: 12px 14px; border-radius: 12px; border: 1px solid #E2E2DE; background: #FFFFFF; font-family: inherit; font-size: 15px; line-height: 1.55; color: #15171C; resize: none"></textarea>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{isSmall}}" hint-placeholder-val="{{ false }}">
+      <section style="display: flex; flex-direction: column; gap: 8px">
+        <label for="fp-line" style="font-size: 13px; font-weight: 600; color: #4A4F57">한 줄로 남기기</label>
+        <input id="fp-line" type="text" placeholder="예) 리팩터링으로 빌드 시간 절반" style="height: 52px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #E2E2DE; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #15171C">
+        <span style="font-size: 12px; line-height: 1.5; color: #6B7078">작은 발자취는 그 달의 큰 발자취 아래에 모여 보여요.</span>
+      </section>
+    </sc-if>
+
+    <button style="height: 52px; display: flex; align-items: center; gap: 10px; padding: 0 14px; border-radius: 12px; border: 1px solid #E2E2DE; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #15171C; cursor: pointer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14" rx="2.5"></rect><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"></path></svg>
+      <span style="font-family: 'IBM Plex Mono', monospace">2026.10.10</span>
+      <span style="color: #6B7078">오늘</span>
+      <span style="margin-left: auto; font-size: 13px; color: #6B7078">10월 영역에 남아요</span>
+    </button>
+  </div>
+
+  <div style="padding: 16px 20px 28px">
+    <a href="Main.dc.html" style="height: 56px; border-radius: 16px; background: #15171C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600; text-decoration: none">
+      발자취 남기기
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: #C9CBD0">+{{steps}} 걸음</span>
+    </a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { size: 'big', cat: 'project' };
+  }
+  renderVals() {
+    const big = this.state.size === 'big';
+    const on = '1.5px solid #15171C';
+    const off = '1px solid #E2E2DE';
+    const defs = [
+      { id: 'achieve', label: '업적', color: '#D99A00', tint: '#FBF2DC' },
+      { id: 'project', label: '프로젝트', color: '#2F5BEA', tint: '#E9EEFD' },
+      { id: 'growth', label: '성장', color: '#16A06F', tint: '#E3F4EC' },
+      { id: 'change', label: '변화', color: '#E04A7A', tint: '#FBE7EE' }
+    ];
+    const cats = defs.map((d) => {
+      const sel = this.state.cat === d.id;
+      return {
+        label: d.label,
+        color: d.color,
+        checked: sel ? 'true' : 'false',
+        bg: sel ? d.tint : '#FFFFFF',
+        border: sel ? '1.5px solid ' + d.color : off,
+        pick: () => this.setState({ cat: d.id })
+      };
+    });
+    return {
+      isBig: big,
+      isSmall: !big,
+      bigChecked: big ? 'true' : 'false',
+      smallChecked: big ? 'false' : 'true',
+      bigBorder: big ? on : off,
+      smallBorder: big ? off : on,
+      bigIconBg: big ? '#15171C' : '#F1F1EE',
+      bigIconFg: big ? '#FFFFFF' : '#6B7078',
+      smallIconBg: big ? '#F1F1EE' : '#15171C',
+      smallIconFg: big ? '#6B7078' : '#FFFFFF',
+      steps: big ? 5 : 1,
+      cats: cats,
+      pickBig: () => this.setState({ size: 'big' }),
+      pickSmall: () => this.setState({ size: 'small' })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>발자취 · 스케치 일기</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#2E2A26}a:hover{color:#B23A63}
+@keyframes wiggle{0%,100%{transform:rotate(8deg)}50%{transform:rotate(3deg)}}
+.wiggle{animation:wiggle 2.6s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.nudge{animation:nudge 1.4s ease-in-out infinite}
+</style>
+</helmet>
+<div style="width: 390px; height: 2160px; position: relative; overflow: hidden; background-color: #FBF8F1; background-image: radial-gradient(circle, #E6DED0 1.2px, transparent 1.6px); background-size: 20px 20px; color: #2E2A26; font-family: 'Gaegu', 'Nanum Pen Script', cursive">
+
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+    <defs>
+      <pattern id="cA" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><rect width="6" height="6" fill="#FFF3C9"></rect><path d="M0 0V6" stroke="#F2C14E" stroke-width="2.6"></path></pattern>
+      <pattern id="cP" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><rect width="6" height="6" fill="#E3EDFB"></rect><path d="M0 0V6" stroke="#7FA8E6" stroke-width="2.6"></path></pattern>
+      <pattern id="cG" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><rect width="6" height="6" fill="#E2F3E6"></rect><path d="M0 0V6" stroke="#85C795" stroke-width="2.6"></path></pattern>
+      <pattern id="cC" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><rect width="6" height="6" fill="#FCE3EA"></rect><path d="M0 0V6" stroke="#F08DA6" stroke-width="2.6"></path></pattern>
+    </defs>
+  </svg>
+
+  <svg aria-hidden="true" width="390" height="2160" viewBox="0 0 390 2160" style="position: absolute; left: 0; top: 0">
+    <defs>
+      <filter id="wob" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="4"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="7"></feDisplacementMap></filter>
+      <pattern id="hSpring" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)"><rect width="9" height="9" fill="#FBE5EA"></rect><path d="M0 0V9" stroke="#F4C3CF" stroke-width="2.4"></path></pattern>
+      <pattern id="hSummer" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)"><rect width="9" height="9" fill="#E6F2DC"></rect><path d="M0 0V9" stroke="#C3DFB1" stroke-width="2.4"></path></pattern>
+      <pattern id="hAutumn" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)"><rect width="9" height="9" fill="#FCE9D7"></rect><path d="M0 0V9" stroke="#F4C9A0" stroke-width="2.4"></path></pattern>
+      <pattern id="hWinter" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)"><rect width="9" height="9" fill="#E6EFF8"></rect><path d="M0 0V9" stroke="#C4D7EC" stroke-width="2.4"></path></pattern>
+    </defs>
+    <g filter="url(#wob)" opacity="0.9">
+      <path fill="url(#hSpring)" d="M-10 186 C40 168 90 192 150 178 S260 164 320 180 S380 190 400 178 V960 C350 972 290 948 230 962 S110 976 50 958 S0 950 -10 960 Z"></path>
+      <path fill="url(#hSummer)" d="M-10 966 C40 948 90 972 150 958 S260 944 320 960 S380 970 400 958 V1300 C350 1312 290 1288 230 1302 S110 1316 50 1298 S0 1290 -10 1300 Z"></path>
+      <path fill="url(#hAutumn)" d="M-10 1306 C40 1288 90 1312 150 1298 S260 1284 320 1300 S380 1310 400 1298 V1860 C350 1872 290 1848 230 1862 S110 1876 50 1858 S0 1850 -10 1860 Z"></path>
+      <path fill="url(#hWinter)" d="M-10 1866 C40 1848 90 1872 150 1858 S260 1844 320 1860 S380 1870 400 1858 V2170 H-10 Z"></path>
+    </g>
+  </svg>
+
+  <!-- 계절 낙서 -->
+  <sc-if value="{{decoOn}}" hint-placeholder-val="{{ true }}">
+    <sc-for list="{{deco}}" as="d" hint-placeholder-count="40">
+      <span aria-hidden="true" style="position: absolute; left: {{d.l}}px; top: {{d.t}}px; width: {{d.s}}px; height: {{d.s}}px; transform: rotate({{d.r}}deg)">
+        <sc-if value="{{d.isFlower}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 24 24"><g fill="{{d.c}}" stroke="#2E2A26" stroke-width="1.3"><circle cx="12" cy="6.2" r="4"></circle><circle cx="17.5" cy="10.2" r="4"></circle><circle cx="15.4" cy="16.6" r="4"></circle><circle cx="8.6" cy="16.6" r="4"></circle><circle cx="6.5" cy="10.2" r="4"></circle></g><circle cx="12" cy="12" r="3" fill="#F6D365" stroke="#2E2A26" stroke-width="1.3"></circle></svg>
+        </sc-if>
+        <sc-if value="{{d.isSprout}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 24 24"><path d="M12 22V11" stroke="#4E8C48" stroke-width="1.8" stroke-linecap="round" fill="none"></path><path d="M12 12C8 12 4.5 9.5 4 5.5 8.5 5 12 7.5 12 12Z" fill="#A9D59A" stroke="#2E2A26" stroke-width="1.2"></path><path d="M12 14C15.5 14 19 11.8 20 8 15.8 7.5 12.5 10 12 14Z" fill="#A9D59A" stroke="#2E2A26" stroke-width="1.2"></path></svg>
+        </sc-if>
+        <sc-if value="{{d.isGrass}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 24 20"><g fill="none" stroke="#4E8C48" stroke-width="1.8" stroke-linecap="round"><path d="M6 19.5C6 12.5 4 8.5 2 6"></path><path d="M12 19.5C12 11 13 6 15.5 2"></path><path d="M17.5 19.5C17.5 13.5 19.5 10.5 22 9.5"></path></g></svg>
+        </sc-if>
+        <sc-if value="{{d.isDaisy}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 24 24"><g fill="#FFFFFF" stroke="#2E2A26" stroke-width="1.2"><ellipse cx="12" cy="5.5" rx="2.6" ry="4"></ellipse><ellipse cx="12" cy="18.5" rx="2.6" ry="4"></ellipse><ellipse cx="5.5" cy="12" rx="4" ry="2.6"></ellipse><ellipse cx="18.5" cy="12" rx="4" ry="2.6"></ellipse></g><circle cx="12" cy="12" r="3.2" fill="#F6D365" stroke="#2E2A26" stroke-width="1.2"></circle></svg>
+        </sc-if>
+        <sc-if value="{{d.isLeaf}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 24 24"><path d="M12 2C18 6 19 14 12 22 5 14 6 6 12 2Z" fill="{{d.c}}" stroke="#2E2A26" stroke-width="1.3" stroke-linejoin="round"></path><path d="M12 5V21M12 11l3.5-2.5M12 15l-3.5-2.5" fill="none" stroke="#2E2A26" stroke-width="1" stroke-linecap="round"></path></svg>
+        </sc-if>
+        <sc-if value="{{d.isMaple}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 24 24"><path d="M12 1.5l2.1 4.3 3.1-1.2-.9 4.4 4.6.6-3.3 3.3 1.4 3.4-4.4-.9-.8 4.1h-3.6l-.8-4.1-4.4.9 1.4-3.4-3.3-3.3 4.6-.6-.9-4.4 3.1 1.2z" fill="{{d.c}}" stroke="#2E2A26" stroke-width="1.1" stroke-linejoin="round"></path><path d="M12 19.5v3.5" stroke="#2E2A26" stroke-width="1.2" stroke-linecap="round"></path></svg>
+        </sc-if>
+        <sc-if value="{{d.isFlake}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 24 24"><g fill="none" stroke="#5F8CC6" stroke-width="1.6" stroke-linecap="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17l17.4-10"></path><path d="M9.5 4.2L12 6.5l2.5-2.3M9.5 19.8L12 17.5l2.5 2.3"></path></g></svg>
+        </sc-if>
+        <sc-if value="{{d.isSnow}}" hint-placeholder-val="{{ false }}">
+          <svg width="100%" height="100%" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="#FFFFFF" stroke="#5F8CC6" stroke-width="1.4"></circle></svg>
+        </sc-if>
+      </span>
+    </sc-for>
+  </sc-if>
+
+  <!-- 머리말 -->
+  <header style="position: absolute; left: 20px; top: 22px; width: 270px; display: flex; flex-direction: column; gap: 6px">
+    <h1 style="margin: 0; font-size: 32px; font-weight: 700; line-height: 1.15">나의 발자취 일기</h1>
+    <svg width="190" height="10" viewBox="0 0 190 10" aria-hidden="true"><path d="M2 6 C20 1 34 9 52 5 S88 1 104 6 S140 9 160 4 S182 3 188 6" fill="none" stroke="#F08DA6" stroke-width="3" stroke-linecap="round"></path></svg>
+    <span style="font-size: 18px; color: #5E564E">2026 · 25걸음 · 큰 발자국 4 · 작은 발자국 5</span>
+    <div style="display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 16px; color: #2E2A26">
+      <span style="display: flex; align-items: center; gap: 4px"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="url(#cA)" stroke="#2E2A26" stroke-width="1.3"></circle></svg>업적</span>
+      <span style="display: flex; align-items: center; gap: 4px"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="url(#cP)" stroke="#2E2A26" stroke-width="1.3"></circle></svg>프로젝트</span>
+      <span style="display: flex; align-items: center; gap: 4px"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="url(#cG)" stroke="#2E2A26" stroke-width="1.3"></circle></svg>성장</span>
+      <span style="display: flex; align-items: center; gap: 4px"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="url(#cC)" stroke="#2E2A26" stroke-width="1.3"></circle></svg>변화</span>
+    </div>
+  </header>
+  <div class="wiggle" style="position: absolute; left: 292px; top: 20px; width: 78px; height: 78px; box-sizing: border-box; border: 2px solid #2E2A26; border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px; background: #FFE38A; box-shadow: 3px 4px 0 rgba(46, 42, 38, 0.18); display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1">
+    <span style="font-size: 24px; font-weight: 700">Lv.5</span>
+    <span style="font-size: 15px; font-weight: 700; margin-top: 2px">개척자</span>
+  </div>
+
+  <!-- 3월 -->
+  <div style="position: absolute; left: 20px; top: 198px; width: 350px; display: flex; align-items: center; gap: 8px">
+    <span style="width: 40px; height: 40px; box-sizing: border-box; border: 2px solid #2E2A26; border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px; background: #FFFFFF; display: grid; place-items: center; font-size: 24px; font-weight: 700">3</span>
+    <span style="font-size: 22px; font-weight: 700">월</span>
+    <span style="font-size: 17px; color: #5E564E">첫 발을 뗐다</span>
+    <span style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 18px; font-weight: 700; color: #A0405E"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><g fill="#F6B9C8" stroke="#2E2A26" stroke-width="1.3"><circle cx="12" cy="6.2" r="4"></circle><circle cx="17.5" cy="10.2" r="4"></circle><circle cx="15.4" cy="16.6" r="4"></circle><circle cx="8.6" cy="16.6" r="4"></circle><circle cx="6.5" cy="10.2" r="4"></circle></g><circle cx="12" cy="12" r="3" fill="#F6D365" stroke="#2E2A26" stroke-width="1.3"></circle></svg>봄</span>
+  </div>
+
+  <svg aria-hidden="true" width="18" height="22" viewBox="0 0 18 22" style="position: absolute; left: 14px; top: 238px"><path d="M3 21V2" stroke="#2E2A26" stroke-width="1.8" stroke-linecap="round"></path><path d="M3 2.5C7 1 9 4 15 3L13 7.5 15 12C9 13 7 10 3 11.5Z" fill="#F08DA6" stroke="#2E2A26" stroke-width="1.3" stroke-linejoin="round"></path></svg>
+  <span style="position: absolute; left: 34px; top: 252px; font-size: 15px; font-weight: 700">출발!</span>
+
+  <article style="position: absolute; left: 140px; top: 258px; width: 228px; box-sizing: border-box; padding: 18px 16px 14px; background: #FFFFFF; border: 2px solid #2E2A26; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; box-shadow: 3px 4px 0 rgba(46, 42, 38, 0.14); transform: rotate(-1.5deg); display: flex; flex-direction: column; gap: 4px">
+    <span aria-hidden="true" style="position: absolute; left: 76px; top: -12px; width: 76px; height: 22px; background: rgba(240, 141, 166, 0.72); transform: rotate(-4deg); clip-path: polygon(3% 0, 97% 6%, 100% 50%, 96% 100%, 2% 94%, 0 48%)"></span>
+    <span style="font-size: 15px; font-weight: 700; color: #B23A63">3.23 · 변화 · 큰 발자국</span>
+    <h3 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.15">반복 작업을 스킬로 자동화하기 시작</h3>
+    <span style="font-size: 16px; line-height: 1.3; color: #5E564E">스킬 레포를 열고 첫 스킬 묶음을 올림</span>
+  </article>
+
+  <div style="position: absolute; left: 40px; top: 424px; width: 220px; display: flex; flex-direction: column; align-items: flex-end; text-align: right">
+    <span style="font-size: 18px; font-weight: 700; line-height: 1.15">첫 이식 스킬 agent-browser</span>
+    <span style="font-size: 15px; color: #1A6B50">3.23 · 성장</span>
+  </div>
+  <svg aria-hidden="true" width="30" height="16" viewBox="0 0 30 16" style="position: absolute; left: 262px; top: 430px"><path d="M2 12C10 4 18 3 27 7" fill="none" stroke="#2E2A26" stroke-width="1.6" stroke-linecap="round"></path><path d="M22 3.5L27.5 7 22 10.5" fill="none" stroke="#2E2A26" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+
+  <div style="position: absolute; left: 240px; top: 502px; width: 134px; display: flex; flex-direction: column">
+    <span style="font-size: 18px; font-weight: 700; line-height: 1.15">work-manager · summary 추가</span>
+    <span style="font-size: 15px; color: #2F5BC0">3.24 · 프로젝트</span>
+  </div>
+
+  <div style="position: absolute; left: 132px; top: 586px; width: 240px; display: flex; flex-direction: column">
+    <span style="font-size: 18px; font-weight: 700; line-height: 1.15">blog_post callout 가이드 확장</span>
+    <span style="font-size: 15px; color: #2F5BC0">3.30 · 프로젝트</span>
+  </div>
+
+  <!-- 4월 · 5월 -->
+  <div style="position: absolute; left: 20px; top: 660px; width: 350px; display: flex; align-items: baseline; gap: 8px">
+    <span style="font-size: 20px; font-weight: 700; color: #5E564E">4월</span>
+    <span style="font-size: 17px; color: #5E564E">· 조용히 걸음</span>
+  </div>
+  <div style="position: absolute; left: 20px; top: 712px; width: 350px; display: flex; align-items: center; gap: 8px">
+    <span style="width: 40px; height: 40px; box-sizing: border-box; border: 2px solid #2E2A26; border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px; background: #FFFFFF; display: grid; place-items: center; font-size: 24px; font-weight: 700">5</span>
+    <span style="font-size: 22px; font-weight: 700">월</span>
+  </div>
+
+  <article style="position: absolute; left: 20px; top: 770px; width: 228px; box-sizing: border-box; padding: 18px 16px 14px; background: #FFFFFF; border: 2px solid #2E2A26; border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px; box-shadow: 3px 4px 0 rgba(46, 42, 38, 0.14); transform: rotate(1.5deg); display: flex; flex-direction: column; gap: 4px">
+    <span aria-hidden="true" style="position: absolute; left: 74px; top: -12px; width: 76px; height: 22px; background: rgba(133, 199, 149, 0.72); transform: rotate(3deg); clip-path: polygon(3% 0, 97% 6%, 100% 50%, 96% 100%, 2% 94%, 0 48%)"></span>
+    <span style="font-size: 15px; font-weight: 700; color: #1A6B50">5.15 · 성장 · 큰 발자국</span>
+    <h3 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.15">agent-web-guide 공개</h3>
+    <span style="font-size: 16px; line-height: 1.3; color: #5E564E">에이전트를 웹에 붙이는 법을 정리</span>
+  </article>
+
+  <div style="position: absolute; left: 120px; top: 924px; width: 250px; display: flex; flex-direction: column">
+    <span style="font-size: 18px; font-weight: 700; line-height: 1.15">README 스킬 목록 정리</span>
+    <span style="font-size: 15px; color: #2F5BC0">5.15 · 프로젝트</span>
+  </div>
+
+  <!-- 6–8월 -->
+  <div style="position: absolute; left: 20px; top: 988px; width: 350px; display: flex; align-items: center; gap: 8px">
+    <span style="font-size: 20px; font-weight: 700; color: #3F6B2F">6~8월</span>
+    <span style="font-size: 17px; color: #5E564E">기록은 없지만 계속 걸었다</span>
+    <span style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 18px; font-weight: 700; color: #3F6B2F"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.6" fill="#FFD966" stroke="#2E2A26" stroke-width="1.3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" stroke="#2E2A26" stroke-width="1.4" stroke-linecap="round"></path></svg>여름</span>
+  </div>
+
+  <!-- 9월 -->
+  <div style="position: absolute; left: 20px; top: 1322px; width: 350px; display: flex; align-items: center; gap: 8px">
+    <span style="width: 40px; height: 40px; box-sizing: border-box; border: 2px solid #2E2A26; border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px; background: #FFFFFF; display: grid; place-items: center; font-size: 24px; font-weight: 700">9</span>
+    <span style="font-size: 22px; font-weight: 700">월</span>
+    <span style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 18px; font-weight: 700; color: #8A4A1E"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l2.1 4.3 3.1-1.2-.9 4.4 4.6.6-3.3 3.3 1.4 3.4-4.4-.9-.8 4.1h-3.6l-.8-4.1-4.4.9 1.4-3.4-3.3-3.3 4.6-.6-.9-4.4 3.1 1.2z" fill="#E8774A" stroke="#2E2A26" stroke-width="1.1" stroke-linejoin="round"></path></svg>가을</span>
+  </div>
+
+  <article style="position: absolute; left: 140px; top: 1384px; width: 228px; box-sizing: border-box; padding: 18px 16px 14px; background: #FFFFFF; border: 2px solid #2E2A26; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; box-shadow: 3px 4px 0 rgba(46, 42, 38, 0.14); transform: rotate(-1deg); display: flex; flex-direction: column; gap: 4px">
+    <span aria-hidden="true" style="position: absolute; left: 76px; top: -12px; width: 76px; height: 22px; background: rgba(242, 193, 78, 0.78); transform: rotate(-3deg); clip-path: polygon(3% 0, 97% 6%, 100% 50%, 96% 100%, 2% 94%, 0 48%)"></span>
+    <span style="font-size: 15px; font-weight: 700; color: #7A5800">9.16 · 업적 · 큰 발자국</span>
+    <h3 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.15">올마이티 스킬 공개</h3>
+    <span style="font-size: 16px; line-height: 1.3; color: #5E564E">먼저 제안하고 끝까지 책임지는 모드</span>
+  </article>
+
+  <div style="position: absolute; left: 40px; top: 1544px; width: 220px; display: flex; flex-direction: column; align-items: flex-end; text-align: right">
+    <span style="font-size: 18px; font-weight: 700; line-height: 1.15">커스텀 스킬 10개 달성</span>
+    <span style="font-size: 15px; color: #7A5800">9.16 · 업적</span>
+  </div>
+  <svg aria-hidden="true" width="30" height="16" viewBox="0 0 30 16" style="position: absolute; left: 262px; top: 1550px"><path d="M2 12C10 4 18 3 27 7" fill="none" stroke="#2E2A26" stroke-width="1.6" stroke-linecap="round"></path><path d="M22 3.5L27.5 7 22 10.5" fill="none" stroke="#2E2A26" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+
+  <!-- 10월 -->
+  <div style="position: absolute; left: 20px; top: 1630px; width: 350px; display: flex; align-items: center; gap: 8px">
+    <span style="width: 44px; height: 40px; box-sizing: border-box; border: 2px solid #2E2A26; border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px; background: #FFFFFF; display: grid; place-items: center; font-size: 22px; font-weight: 700">10</span>
+    <span style="font-size: 22px; font-weight: 700">월</span>
+    <span style="font-size: 17px; color: #5E564E">지금 걷는 중</span>
+  </div>
+
+  <article style="position: absolute; left: 20px; top: 1690px; width: 228px; box-sizing: border-box; padding: 18px 16px 14px; background: #FFFFFF; border: 2px solid #2E2A26; border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px; box-shadow: 3px 4px 0 rgba(46, 42, 38, 0.14); transform: rotate(1deg); display: flex; flex-direction: column; gap: 4px">
+    <span aria-hidden="true" style="position: absolute; left: 74px; top: -12px; width: 76px; height: 22px; background: rgba(127, 168, 230, 0.72); transform: rotate(4deg); clip-path: polygon(3% 0, 97% 6%, 100% 50%, 96% 100%, 2% 94%, 0 48%)"></span>
+    <span style="font-size: 15px; font-weight: 700; color: #2F5BC0">10.10 · 프로젝트 · 큰 발자국</span>
+    <h3 style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.15">발자취 프로젝트 구상 시작</h3>
+    <span style="font-size: 16px; line-height: 1.3; color: #5E564E">걸어온 길을 남기는 앱을 그리는 중</span>
+    <span aria-hidden="true" style="position: absolute; right: -14px; bottom: -12px; padding: 2px 8px; border: 2px solid #D7301F; border-radius: 6px; color: #C22A1A; font-size: 16px; font-weight: 700; transform: rotate(-12deg); background: rgba(255, 255, 255, 0.85)">오늘!</span>
+  </article>
+
+  <div class="nudge" style="position: absolute; left: 270px; top: 1772px; display: flex; flex-direction: column; align-items: center">
+    <svg width="18" height="20" viewBox="0 0 18 20" aria-hidden="true"><path d="M9 19V3M3 8.5L9 2.5l6 6" fill="none" stroke="#2E2A26" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <span style="font-size: 17px; font-weight: 700">지금 여기!</span>
+  </div>
+
+  <!-- 겨울 -->
+  <div style="position: absolute; left: 20px; top: 1886px; width: 350px; display: flex; align-items: center; gap: 8px">
+    <span style="font-size: 20px; font-weight: 700; color: #3D5F8C">11월~</span>
+    <span style="font-size: 17px; color: #5E564E">아직 빈 페이지</span>
+    <span style="margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 18px; font-weight: 700; color: #3D5F8C"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="#5F8CC6" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17l17.4-10"></path></g></svg>겨울</span>
+  </div>
+
+  <svg aria-hidden="true" width="40" height="54" viewBox="0 0 24 32" style="position: absolute; left: 175px; top: 1958px">
+    <g fill="none" stroke="#2E2A26" stroke-width="1.3" stroke-dasharray="2.4 2.2"><path d="M7 12C7 9 9.5 7.5 12.5 7.5C16 7.5 18 9.5 18 12.5C18 15 16.5 16.5 16 18.5C15.6 20 16.5 21.5 16.5 24C16.5 28 14.5 30.5 11.8 30.5C9 30.5 7.5 28.3 7.5 25.5C7.5 23 9 21.5 9 19.5C9 17 7 15 7 12Z"></path><circle cx="9" cy="4.6" r="2.4"></circle><circle cx="12.8" cy="3.4" r="1.6"></circle><circle cx="15.4" cy="4" r="1.45"></circle><circle cx="17.6" cy="5.5" r="1.3"></circle><circle cx="19" cy="7.8" r="1.15"></circle></g>
+  </svg>
+  <span style="position: absolute; left: 0; top: 2020px; width: 390px; text-align: center; font-size: 19px; font-weight: 700">다음 발자국은 어디에?</span>
+
+  <!-- 걸어온 길 -->
+  <sc-for list="{{steps}}" as="s" hint-placeholder-count="40">
+    <svg aria-hidden="true" width="11" height="15" viewBox="0 0 24 32" style="position: absolute; left: {{s.l}}px; top: {{s.t}}px; transform: rotate({{s.r}}deg) scaleX({{s.fx}}); opacity: {{s.o}}">
+      <g fill="#FFFDF8" stroke="#2E2A26" stroke-width="2.4" stroke-dasharray="{{s.dash}}"><path d="M7 12C7 9 9.5 7.5 12.5 7.5C16 7.5 18 9.5 18 12.5C18 15 16.5 16.5 16 18.5C15.6 20 16.5 21.5 16.5 24C16.5 28 14.5 30.5 11.8 30.5C9 30.5 7.5 28.3 7.5 25.5C7.5 23 9 21.5 9 19.5C9 17 7 15 7 12Z"></path><circle cx="9" cy="4.6" r="2.4"></circle><circle cx="12.8" cy="3.4" r="1.6"></circle><circle cx="15.4" cy="4" r="1.45"></circle><circle cx="17.6" cy="5.5" r="1.3"></circle><circle cx="19" cy="7.8" r="1.15"></circle></g>
+    </svg>
+  </sc-for>
+
+  <!-- 발자국 (큰 / 작은) -->
+  <sc-for list="{{feet}}" as="f" hint-placeholder-count="9">
+    <svg aria-hidden="true" width="{{f.w}}" height="{{f.h}}" viewBox="0 0 24 32" style="position: absolute; left: {{f.l}}px; top: {{f.t}}px; transform: rotate({{f.r}}deg)">
+      <g fill="url(#{{f.pat}})" stroke="#2E2A26" stroke-width="{{f.sw}}" stroke-linejoin="round"><path d="M7 12C7 9 9.5 7.5 12.5 7.5C16 7.5 18 9.5 18 12.5C18 15 16.5 16.5 16 18.5C15.6 20 16.5 21.5 16.5 24C16.5 28 14.5 30.5 11.8 30.5C9 30.5 7.5 28.3 7.5 25.5C7.5 23 9 21.5 9 19.5C9 17 7 15 7 12Z"></path><circle cx="9" cy="4.6" r="2.4"></circle><circle cx="12.8" cy="3.4" r="1.6"></circle><circle cx="15.4" cy="4" r="1.45"></circle><circle cx="17.6" cy="5.5" r="1.3"></circle><circle cx="19" cy="7.8" r="1.15"></circle></g>
+    </svg>
+    <sc-if value="{{f.big}}" hint-placeholder-val="{{ true }}">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" style="position: absolute; left: {{f.sl}}px; top: {{f.st}}px"><path d="M10 2v5M3 6l3.5 3M17 6l-3.5 3" fill="none" stroke="#2E2A26" stroke-width="1.8" stroke-linecap="round"></path></svg>
+    </sc-if>
+  </sc-for>
+
+  <a href="#" style="position: absolute; left: 90px; bottom: 24px; width: 210px; height: 54px; box-sizing: border-box; border: 2px solid #2E2A26; border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px; background: #FFE38A; box-shadow: 3px 4px 0 #2E2A26; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 21px; font-weight: 700; color: #2E2A26; text-decoration: none">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 4.5v15M4.5 12h15"></path></svg>
+    발자국 남기기
+  </a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"seasonDecor":{"editor":"boolean","default":true},"$preview":{"width":390,"height":2160}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const decoOn = this.props.seasonDecor ?? true;
+    // 시간 순서(위 → 아래)로 지나는 길
+    const pts = [[30, 250], [78, 300], [110, 395], [200, 425], [302, 440], [212, 520], [104, 600], [80, 650], [150, 700], [240, 760], [306, 815], [200, 885], [92, 940], [110, 1020], [250, 1065], [320, 1140], [200, 1200], [90, 1260], [120, 1345], [80, 1430], [150, 1520], [302, 1560], [300, 1620], [250, 1680], [306, 1735]];
+    const ghostPts = [[306, 1735], [296, 1815], [250, 1880], [205, 1945]];
+    const E = [
+      { x: 78, y: 300, big: true, pat: 'cC' },
+      { x: 302, y: 440, big: false, pat: 'cG' },
+      { x: 212, y: 520, big: false, pat: 'cP' },
+      { x: 104, y: 600, big: false, pat: 'cP' },
+      { x: 306, y: 815, big: true, pat: 'cG' },
+      { x: 92, y: 940, big: false, pat: 'cP' },
+      { x: 80, y: 1430, big: true, pat: 'cA' },
+      { x: 302, y: 1560, big: false, pat: 'cA' },
+      { x: 306, y: 1735, big: true, pat: 'cP' }
+    ];
+    const blocks = [
+      { x0: 0, y0: 0, x1: 390, y1: 176 },
+      { x0: 134, y0: 250, x1: 374, y1: 410 },
+      { x0: 40, y0: 420, x1: 292, y1: 468 },
+      { x0: 236, y0: 498, x1: 376, y1: 554 },
+      { x0: 128, y0: 582, x1: 376, y1: 628 },
+      { x0: 14, y0: 762, x1: 256, y1: 912 },
+      { x0: 116, y0: 920, x1: 376, y1: 966 },
+      { x0: 134, y0: 1376, x1: 374, y1: 1530 },
+      { x0: 40, y0: 1540, x1: 292, y1: 1588 },
+      { x0: 14, y0: 1682, x1: 262, y1: 1842 },
+      { x0: 258, y0: 1768, x1: 340, y1: 1814 },
+      { x0: 160, y0: 1950, x1: 230, y1: 2016 },
+      { x0: 40, y0: 2016, x1: 350, y1: 2046 },
+      { x0: 80, y0: 2076, x1: 310, y1: 2160 },
+      { x0: 10, y0: 234, x1: 80, y1: 274 }
+    ];
+    [[198, 40], [660, 28], [712, 40], [988, 30], [1322, 40], [1630, 40], [1886, 30]].forEach((r) => blocks.push({ x0: 14, y0: r[0] - 4, x1: 376, y1: r[0] + r[1] + 4 }));
+
+    const sampleCR = (P, spacing) => {
+      const out = [];
+      let acc = spacing * 0.5;
+      let prev = null;
+      for (let i = 0; i < P.length - 1; i++) {
+        const p0 = P[Math.max(i - 1, 0)], p1 = P[i], p2 = P[i + 1], p3 = P[Math.min(i + 2, P.length - 1)];
+        for (let s = 0; s <= 24; s++) {
+          if (i > 0 && s === 0) continue;
+          const t = s / 24, t2 = t * t, t3 = t2 * t;
+          const f = (a, b, c, d) => 0.5 * (2 * b + (-a + c) * t + (2 * a - 5 * b + 4 * c - d) * t2 + (-a + 3 * b - 3 * c + d) * t3);
+          const x = f(p0[0], p1[0], p2[0], p3[0]);
+          const y = f(p0[1], p1[1], p2[1], p3[1]);
+          if (prev) {
+            acc += Math.hypot(x - prev[0], y - prev[1]);
+            if (acc >= spacing) {
+              acc = 0;
+              out.push({ x: x, y: y, ang: Math.atan2(y - prev[1], x - prev[0]) });
+            }
+          }
+          prev = [x, y];
+        }
+      }
+      return out;
+    };
+    const inBlock = (x, y, pad) => blocks.some((b) => x > b.x0 - pad && x < b.x1 + pad && y > b.y0 - pad && y < b.y1 + pad);
+    const nearEntry = (x, y) => E.some((e) => Math.hypot(e.x - x, e.y - y) < (e.big ? 34 : 22));
+
+    const toStep = (p, idx, ghost) => {
+      const side = idx % 2 === 0 ? 1 : -1;
+      const x = p.x - Math.sin(p.ang) * side * 6;
+      const y = p.y + Math.cos(p.ang) * side * 6;
+      return { l: (x - 5.5).toFixed(1), t: (y - 7.5).toFixed(1), r: (p.ang * 180 / Math.PI + 90).toFixed(1), fx: side < 0 ? -1 : 1, o: ghost ? '0.55' : '1', dash: ghost ? '3 3' : 'none' };
+    };
+    const steps = [];
+    sampleCR(pts, 30).forEach((p, idx) => {
+      if (nearEntry(p.x, p.y) || inBlock(p.x, p.y, 2)) return;
+      steps.push(toStep(p, idx, false));
+    });
+    sampleCR(ghostPts, 30).forEach((p, idx) => {
+      if (nearEntry(p.x, p.y) || inBlock(p.x, p.y, 2) || p.y > 1930) return;
+      steps.push(toStep(p, idx, true));
+    });
+
+    const feet = E.map((e) => {
+      const i = pts.findIndex((p) => p[0] === e.x && p[1] === e.y);
+      const a = pts[Math.max(i - 1, 0)], b = pts[Math.min(i + 1, pts.length - 1)];
+      const rot = Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI + 90;
+      const w = e.big ? 36 : 19, h = e.big ? 48 : 25;
+      return { big: e.big, pat: e.pat, w: w, h: h, sw: e.big ? 1.3 : 1.7, l: (e.x - w / 2).toFixed(1), t: (e.y - h / 2).toFixed(1), r: rot.toFixed(1), sl: e.x + 14, st: e.y - 38 };
+    });
+
+    const trail = sampleCR(pts, 10).concat(sampleCR(ghostPts, 10));
+    let seed = 1010;
+    const rnd = () => {
+      seed = (seed * 16807) % 2147483647;
+      return (seed - 1) / 2147483646;
+    };
+    const pick = (arr) => arr[Math.floor(rnd() * arr.length)];
+    const zones = [
+      { y0: 230, y1: 950, n: 24, kinds: ['flower', 'flower', 'sprout'], colors: ['#F6B9C8', '#F9CFA8', '#F3A9C0'] },
+      { y0: 1020, y1: 1290, n: 22, kinds: ['grass', 'grass', 'daisy'], colors: ['#FFFFFF'] },
+      { y0: 1320, y1: 1850, n: 22, kinds: ['leaf', 'maple', 'leaf'], colors: ['#F0A05A', '#E8774A', '#F2C14E', '#D9653B'] },
+      { y0: 1880, y1: 2150, n: 14, kinds: ['flake', 'snow', 'flake'], colors: ['#FFFFFF'] }
+    ];
+    const deco = [];
+    zones.forEach((z) => {
+      let made = 0, tries = 0;
+      while (made < z.n && tries < z.n * 12) {
+        tries += 1;
+        const kind = pick(z.kinds);
+        const s = kind === 'snow' ? 10 + rnd() * 5 : 15 + rnd() * 8;
+        const x = 4 + rnd() * (382 - s);
+        const y = z.y0 + rnd() * (z.y1 - z.y0);
+        const cx = x + s / 2, cy = y + s / 2;
+        if (trail.some((p) => Math.abs(p.y - cy) < 34 && Math.hypot(p.x - cx, p.y - cy) < 24)) continue;
+        if (inBlock(cx, cy, s / 2 + 4)) continue;
+        if (deco.some((d) => Math.hypot(d.cx - cx, d.cy - cy) < 26)) continue;
+        deco.push({
+          cx: cx,
+          cy: cy,
+          l: x.toFixed(1),
+          t: y.toFixed(1),
+          s: s.toFixed(1),
+          r: kind === 'grass' || kind === 'sprout' ? Math.round(rnd() * 20 - 10) : Math.round(rnd() * 360),
+          c: pick(z.colors),
+          isFlower: kind === 'flower',
+          isSprout: kind === 'sprout',
+          isGrass: kind === 'grass',
+          isDaisy: kind === 'daisy',
+          isLeaf: kind === 'leaf',
+          isMaple: kind === 'maple',
+          isFlake: kind === 'flake',
+          isSnow: kind === 'snow'
+        });
+        made += 1;
+      }
+    });
+
+    return { decoOn: decoOn, deco: deco, steps: steps, feet: feet };
+  }
+}
+</script>
+</body>
+</html>
