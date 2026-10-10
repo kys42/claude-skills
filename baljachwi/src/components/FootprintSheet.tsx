@@ -93,10 +93,6 @@ export function FootprintSheet({ mode, draft, today, bottomInset, onChange, onSa
 
   return (
     <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
-      <Pressable onPress={() => leave(onClose)} accessibilityLabel="닫기" style={StyleSheet.absoluteFill}>
-        <Animated.View pointerEvents="none" style={[styles.scrim, { opacity: t }]} />
-      </Pressable>
-
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.dock} pointerEvents="box-none">
         <Animated.View
           accessibilityViewIsModal
@@ -104,7 +100,10 @@ export function FootprintSheet({ mode, draft, today, bottomInset, onChange, onSa
           <View style={styles.handle} />
           <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>
             <View style={styles.topRow}>
-              <Text style={styles.eyebrow}>{mode === 'new' ? '새 발자국' : '발자국 고치기'}</Text>
+              <View style={styles.heading}>
+                <Text style={styles.eyebrow}>{mode === 'new' ? '새 발자국' : '발자국 고치기'}</Text>
+                <Text style={styles.hint}>길 위를 누르면 그 자리로 옮겨져요</Text>
+              </View>
               <Pressable onPress={() => leave(onClose)} accessibilityRole="button" accessibilityLabel="닫기" hitSlop={6} style={styles.close}>
                 <CloseIcon size={20} color={ink.body} />
               </Pressable>
@@ -263,7 +262,6 @@ export function FootprintSheet({ mode, draft, today, bottomInset, onChange, onSa
 }
 
 const styles = StyleSheet.create({
-  scrim: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(24, 33, 43, 0.12)' },
   dock: { ...StyleSheet.absoluteFill, justifyContent: 'flex-end', alignItems: 'center' },
   sheet: {
     backgroundColor: '#FCFDFE',
@@ -278,7 +276,9 @@ const styles = StyleSheet.create({
   handle: { alignSelf: 'center', width: 38, height: 4, borderRadius: 2, backgroundColor: '#D3DAE2', marginTop: 10, marginBottom: 2 },
   body: { paddingHorizontal: 20, paddingTop: 4, gap: 14 },
   topRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  heading: { gap: 2 },
   eyebrow: { ...font.bold, fontSize: 12, color: ink.muted, letterSpacing: 0.4 },
+  hint: { ...font.regular, fontSize: 12, color: '#7A8794' },
   close: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center', backgroundColor: '#F0F3F6', marginRight: -4 },
   dateBtn: {
     flexDirection: 'row',

@@ -10,8 +10,10 @@ export interface Footprint {
   category: Category;
   title: string;
   note?: string;
+  /** Where across the ground it was stamped, 0–1 of the column; unset follows the default path. */
+  x?: number;
   createdAt: string;
   updatedAt: string;
 }
 
-export type FootprintDraft = Pick<Footprint, 'date' | 'size' | 'category' | 'title' | 'note'>;
+export type FootprintDraft = Pick<Footprint, 'date' | 'size' | 'category' | 'title' | 'note' | 'x'>;

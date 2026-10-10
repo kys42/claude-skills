@@ -102,9 +102,20 @@ export interface MonthInput {
   geometry: TrailGeometry;
   /** Extra room under the "you are here" button (e.g. for a first-run hint). */
   nowRoom?: number;
+  /** Path through all footprints (see `path.ts`); defaults to the plain meander. */
+  pathX?: (u: number) => number;
 }
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+
+interface Rect {
+  x0: number;
+  y0: number;
+  x1: number;
+  y1: number;
+}
+
+const overlaps = (a: Rect, b: Rect, pad: number) => a.x0 < b.x1 + pad && b.x0 < a.x1 + pad && a.y0 < b.y1 + pad && b.y0 < a.y1 + pad;
 
 /** Horizontal trail position at time `u` — a slow, organic meander. */
 export function trailX(u: number, g: TrailGeometry): number {
@@ -146,6 +157,15 @@ export function labelHeight(f: Pick<Footprint, 'size' | 'title' | 'note'>, width
   return titleLines * 20 + 3 + 17;
 }
 
+/** How wide a label's words actually run (a multi-line title fills the whole box). */
+function inkWidth(f: Pick<Footprint, 'size' | 'title' | 'note'>, width: number): number {
+  const title = f.title || TITLE_PLACEHOLDER;
+  const titleW = textWidth(title, f.size === 'big' ? 18 : 14) * 1.06;
+  if (titleW > width * 0.9) return width;
+  const noteW = f.note ? Math.min(width, textWidth(f.note, 13) * 1.06) : 0;
+  return Math.max(titleW, noteW, 96);
+}
+
 export function yToU(knots: [number, number][], y: number): number {
   if (y <= knots[0][0]) return knots[0][1];
   for (let i = 1; i < knots.length; i++) {
@@ -166,7 +186,8 @@ export function dateAtY(layout: MonthLayout, y: number): string {
   return formatISO(fromDayIndex(index));
 }
 
-export function layoutMonth({ year, month, footprints, today, geometry: g, nowRoom = 0 }: MonthInput): MonthLayout {
+export function layoutMonth({ year, month, footprints, today, geometry: g, nowRoom = 0, pathX }: MonthInput): MonthLayout {
+  const pathAt = pathX ?? ((u: number) => trailX(u, g));
   const key = monthKey(year, month);
   const todayKey = monthKey(today.y, today.m);
   const isCurrent = key === todayKey;
@@ -175,7 +196,6 @@ export function layoutMonth({ year, month, footprints, today, geometry: g, nowRo
   const uBottom = dayIndex({ y: year, m: month, d: 1 });
   const season = seasonOf(month);
   const seasonMeta = SEASONS[season];
-  const center = g.offsetX + g.contentW / 2;
   const minBody = isCurrent ? NOW.offset + NOW.size / 2 + 30 + nowRoom : MIN_BODY;
   const dayH = Math.max(DAY_H, minBody / lastDay);
   const naturalY = (u: number) => HEADER_H + (uTop - u) * dayH;
@@ -196,7 +216,8 @@ export function layoutMonth({ year, month, footprints, today, geometry: g, nowRo
   ];
   const firstFloor = isCurrent ? HEADER_H + NOW.offset + NOW.size / 2 + 20 + nowRoom : HEADER_H + 10;
   let prev: { y: number; big: boolean } | null = null;
-  const lastLabelBottom = { left: firstFloor - 10, right: firstFloor - 10 };
+  // Everything already placed this month: labels (as wide as their words) and prints.
+  const placed: Rect[] = [];
   let sameDayIndex = 0;
   let lastDate = '';
 
@@ -207,37 +228,47 @@ export function layoutMonth({ year, month, footprints, today, geometry: g, nowRo
     const u = dayIndex({ y: year, m: month, d: day }) + 0.5 - sameDayIndex * 0.02;
     const big = f.size === 'big';
     const spec = big ? PRINT.big : PRINT.small;
-    const x0 = trailX(u, g);
-    const align: 'left' | 'right' = x0 > center ? 'right' : 'left';
-    const onLeft = align === 'right';
+    const x0 = pathAt(u);
+    // The label goes to whichever side has more room.
+    const leftRoom = x0 - spec.labelOffset - (g.offsetX + PAD);
+    const rightRoom = g.offsetX + g.contentW - PAD - (x0 + spec.labelOffset);
+    const onLeft = leftRoom > rightRoom;
+    const align: 'left' | 'right' = onLeft ? 'right' : 'left';
     const left = onLeft ? g.offsetX + PAD : x0 + spec.labelOffset;
-    const width = Math.max(96, onLeft ? x0 - spec.labelOffset - left : g.offsetX + g.contentW - PAD - left);
+    const width = Math.max(96, onLeft ? leftRoom : rightRoom);
     const height = labelHeight(f, width);
-    const side = onLeft ? 'left' : 'right';
+    const inked = Math.min(width, inkWidth(f, width));
+    const inkLeft = onLeft ? left + width - inked : left;
 
     let y = Math.max(naturalY(u), firstFloor + spec.labelTop);
     if (prev) {
       const gap = prev.big && big ? 60 : prev.big || big ? 44 : 32;
       y = Math.max(y, prev.y + gap);
     }
-    y = Math.max(y, lastLabelBottom[side] + 12 + spec.labelTop);
+    // Slide down until neither the words nor the print touch anything already on the ground.
+    for (let tries = 0; tries < 24; tries++) {
+      const label = { x0: inkLeft, y0: y - spec.labelTop, x1: inkLeft + inked, y1: y - spec.labelTop + height };
+      const print = { x0: x0 - spec.w / 2, y0: y - spec.h / 2, x1: x0 + spec.w / 2, y1: y + spec.h / 2 };
+      const hits = placed.filter((r) => overlaps(r, label, 10) || overlaps(r, print, 8));
+      if (hits.length === 0) break;
+      y = Math.max(...hits.map((r) => r.y1)) + 12 + Math.max(spec.labelTop, spec.h / 2);
+    }
 
     const top = y - spec.labelTop;
-    lastLabelBottom[side] = top + height;
+    placed.push(
+      { x0: inkLeft, y0: top, x1: inkLeft + inked, y1: top + height },
+      { x0: x0 - spec.w / 2, y0: y - spec.h / 2, x1: x0 + spec.w / 2, y1: y + spec.h / 2 },
+    );
     prev = { y, big };
     knots.push([y, u]);
     entries.push({ footprint: f, x: x0, y, rot: 0, opacity: ageFade, label: { left, top, width, height, align } });
   }
 
-  const contentBottom = Math.max(
-    lastLabelBottom.left,
-    lastLabelBottom.right,
-    entries.length ? entries[entries.length - 1].y + 34 : 0,
-  );
+  const contentBottom = Math.max(0, ...placed.map((r) => r.y1), entries.length ? entries[entries.length - 1].y + 34 : 0);
   const height = Math.ceil(Math.max(HEADER_H + lastDay * dayH, contentBottom + 22));
   knots.push([height, uBottom]);
 
-  const xAt = (y: number) => trailX(yToU(knots, y), g);
+  const xAt = (y: number) => pathAt(yToU(knots, y));
   const rotAt = (y: number) => {
     // Toes point up the screen, toward newer days.
     const vx = xAt(y - 3) - xAt(y + 3);

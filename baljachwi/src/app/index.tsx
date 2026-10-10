@@ -11,13 +11,14 @@ import { MAX_CONTENT_W } from '@/components/theme';
 import { Toast, type ToastMessage } from '@/components/Toast';
 import { TopBar } from '@/components/TopBar';
 import { GHOST_H, TOPBAR_H, TrailHead, nextSeasonOf } from '@/components/TrailHead';
-import { daysInMonth, formatISO, fromMonthKey, monthKey, parseISODate, todayISO, weekday } from '@/domain/dates';
+import { compareISO, dayIndex, daysInMonth, formatISO, fromMonthKey, monthKey, parseISODate, todayISO, weekday } from '@/domain/dates';
 import { STEPS, countSteps, levelForSteps } from '@/domain/level';
 import { withJosa } from '@/domain/korean';
 import { SEASONS } from '@/domain/seasons';
 import type { Footprint, FootprintDraft } from '@/domain/types';
 import { useFootprints } from '@/store/footprints';
-import { layoutMonth, trailXAtMonthStart, type MonthLayout, type TrailGeometry } from '@/trail/layout';
+import { layoutMonth, type MonthLayout, type TrailGeometry } from '@/trail/layout';
+import { anchorsAround, buildAnchors, makePathX } from '@/trail/path';
 import { buildTimeline, type TimelineItem } from '@/trail/timeline';
 
 const DRAFT_ID = '__draft__';
@@ -42,7 +43,7 @@ const monthLabel = (key: number) => {
 
 export default function TrailScreen() {
   const insets = useSafeAreaInsets();
-  const { width } = useWindowDimensions();
+  const { width, height: screenH } = useWindowDimensions();
   const footprints = useFootprints((s) => s.footprints);
   const hydrated = useFootprints((s) => s.hydrated);
   const add = useFootprints((s) => s.add);
@@ -75,6 +76,17 @@ export default function TrailScreen() {
   }, [footprints, sheet]);
   const highlightId = sheet ? (sheet.mode === 'new' ? DRAFT_ID : sheet.id) : undefined;
 
+  // The walked path runs through every footprint, wherever it was stamped.
+  const anchors = useMemo(() => buildAnchors(shown, geometry), [shown, geometry]);
+  const pathX = useMemo(() => makePathX(anchors, geometry), [anchors, geometry]);
+  const xAtMonthStart = useCallback(
+    (key: number) => {
+      const { y, m } = fromMonthKey(key);
+      return pathX(dayIndex({ y, m, d: 1 }));
+    },
+    [pathX],
+  );
+
   const byMonth = useMemo(() => {
     const map = new Map<number, Footprint[]>();
     for (const f of shown) {
@@ -89,16 +101,25 @@ export default function TrailScreen() {
     (key: number) => {
       const list = byMonth.get(key) ?? [];
       const coach = key === topKey && showCoach;
-      const sig = `${key}|${width}|${today}|${coach}|${list.map((f) => `${f.id}:${f.date}:${f.size}:${f.category}:${f.title}:${f.note ?? ''}`).join('|')}`;
+      const { y, m } = fromMonthKey(key);
+      const uBottom = dayIndex({ y, m, d: 1 });
+      const shaping = anchorsAround(anchors, uBottom, uBottom + daysInMonth(y, m));
+      const sig = [
+        key,
+        width,
+        today,
+        coach,
+        list.map((f) => `${f.id}:${f.date}:${f.size}:${f.category}:${f.title}:${f.note ?? ''}`).join('|'),
+        shaping.map((a) => `${a.u.toFixed(2)}:${a.x.toFixed(1)}`).join('|'),
+      ].join('#');
       const hit = layoutCache.get(sig);
       if (hit) return hit;
-      const { y, m } = fromMonthKey(key);
-      const layout = layoutMonth({ year: y, month: m, footprints: list, today: todayYMD, geometry, nowRoom: coach ? COACH_ROOM : 0 });
+      const layout = layoutMonth({ year: y, month: m, footprints: list, today: todayYMD, geometry, nowRoom: coach ? COACH_ROOM : 0, pathX });
       if (layoutCache.size > 400) layoutCache.clear();
       layoutCache.set(sig, layout);
       return layout;
     },
-    [byMonth, topKey, showCoach, width, today, todayYMD, geometry],
+    [byMonth, topKey, showCoach, width, today, todayYMD, geometry, anchors, pathX],
   );
 
   const filled = useMemo(() => new Set(byMonth.keys()), [byMonth]);
@@ -129,6 +150,7 @@ export default function TrailScreen() {
     return out;
   }, [rows]);
 
+  const scrollY = useRef(0);
   const rowsRef = useRef({ rows, offsets });
   useEffect(() => {
     rowsRef.current = { rows, offsets };
@@ -144,26 +166,41 @@ export default function TrailScreen() {
     const index = rs.findIndex((r) => r.layout?.entries.some((e) => e.footprint.id === highlightId));
     if (index < 0) return;
     const entry = rs[index].layout!.entries.find((e) => e.footprint.id === highlightId)!;
+    const onScreen = os[index] + entry.y - scrollY.current;
+    // Leave the view alone when the footprint is already visible above the sheet.
+    if (onScreen > insets.top + TOPBAR_H + 40 && onScreen < screenH - SHEET_RESERVE - 30) return;
     const offset = Math.max(0, os[index] + entry.y - FOCUS_FROM_TOP - insets.top);
     const id = setTimeout(() => listRef.current?.scrollToOffset({ offset, animated: true }), 60);
     return () => clearTimeout(id);
-  }, [focusKey, highlightId, insets.top]);
+  }, [focusKey, highlightId, insets.top, screenH]);
 
   const say = useCallback((title: string, detail?: string) => setToast({ id: Date.now(), title, detail }), []);
 
   const openNew = useCallback(
-    (date: string) => {
+    (date: string, x?: number) => {
       const last = [...footprints].sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0];
       setStampId(undefined);
-      setSheet({ mode: 'new', draft: { date, size: last?.size ?? 'big', category: last?.category ?? 'project', title: '', note: '' } });
+      setSheet({ mode: 'new', draft: { date, x, size: last?.size ?? 'big', category: last?.category ?? 'project', title: '', note: '' } });
     },
     [footprints],
   );
   const openEdit = useCallback((f: Footprint) => {
     if (f.id === DRAFT_ID) return;
     setStampId(undefined);
-    setSheet({ mode: 'edit', id: f.id, draft: { date: f.date, size: f.size, category: f.category, title: f.title, note: f.note ?? '' } });
+    setSheet((open) =>
+      open ? open : { mode: 'edit', id: f.id, draft: { date: f.date, x: f.x, size: f.size, category: f.category, title: f.title, note: f.note ?? '' } },
+    );
   }, []);
+
+  // Bare ground: start a footprint there, or move the one being written.
+  const onPressGround = useCallback(
+    (date: string, x: number) => {
+      if (compareISO(date, today) > 0) return;
+      if (sheet) setSheet({ ...sheet, draft: { ...sheet.draft, date, x } });
+      else openNew(date, x);
+    },
+    [sheet, today, openNew],
+  );
 
   const onSave = useCallback(() => {
     if (!sheet) return;
@@ -210,6 +247,7 @@ export default function TrailScreen() {
   const onScroll = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {
       const y = e.nativeEvent.contentOffset.y;
+      scrollY.current = y;
       if (y < 600) return setWhereKey((k) => (k === null ? k : null));
       const probe = y + insets.top + TOPBAR_H + 20;
       const { rows: rs, offsets: os } = rowsRef.current;
@@ -250,7 +288,7 @@ export default function TrailScreen() {
           highlightId={row.layout.entries.some((e) => e.footprint.id === highlightId) ? highlightId : undefined}
           stampId={stampId}
           showCoach={it.monthKey === topKey && showCoach}
-          onPressDate={openNew}
+          onPressGround={onPressGround}
           onPressEntry={openEdit}
           onPressNow={() => openNew(today)}
           onSample={loadSamples}
@@ -263,8 +301,8 @@ export default function TrailScreen() {
           newestKey={it.newestKey}
           oldestKey={it.oldestKey}
           count={it.count}
-          topX={trailXAtMonthStart(it.newestKey + 1, geometry)}
-          bottomX={trailXAtMonthStart(it.oldestKey, geometry)}
+          topX={xAtMonthStart(it.newestKey + 1)}
+          bottomX={xAtMonthStart(it.oldestKey)}
           fullW={width}
           onOpen={() => openGap(it.newestKey, it.oldestKey)}
         />
@@ -275,7 +313,7 @@ export default function TrailScreen() {
         <StartSection
           bottomKey={it.bottomKey}
           oldestFootprint={oldestSaved}
-          topX={trailXAtMonthStart(it.bottomKey, geometry)}
+          topX={xAtMonthStart(it.bottomKey)}
           fullW={width}
           insetBottom={insets.bottom}
           onAddEarlier={addEarlier}
